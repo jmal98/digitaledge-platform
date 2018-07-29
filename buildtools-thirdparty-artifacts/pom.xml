@@ -304,6 +304,117 @@
 						</configuration>
 					</execution>
 
+					<execution>
+						<id>install-csv-serde-jar</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>org.hive.serde</groupId>
+							<artifactId>csv-serde</artifactId>
+							<version>0.9.1</version>
+							<packaging>jar</packaging>
+							<file>${basedir}/lib/org.hive.serde/csv-serde-0.9.1.jar</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-jquery-zip</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.jquery</groupId>
+                        				<artifactId>jquery</artifactId>
+							<classifier>min</classifier>
+							<version>1.7.2</version>
+							<packaging>zip</packaging>
+							<file>${basedir}/lib/com.jquery/jquery-1.7.2-min.zip</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-jqueryui-zip</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.jqueryui</groupId>
+                        				<artifactId>jquery-ui</artifactId>
+							<classifier>redmond</classifier>
+							<version>1.8.21</version>
+							<packaging>zip</packaging>
+							<file>${basedir}/lib/com.jqueryui/jquery-ui-1.8.21-redmond.zip</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-malsup-zip</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							 <groupId>com.malsup</groupId>
+                        				<artifactId>jquery-form-plugin</artifactId>
+							<version>3.14</version>
+							<packaging>zip</packaging>
+							<file>${basedir}/lib/com.malsup/jquery-form-plugin-3.14.zip</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-bootstrap-zip</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.twitter</groupId>
+                        				<artifactId>bootstrap</artifactId>
+							<classifier>min</classifier>
+                        				<version>2.1.0</version>
+							<packaging>zip</packaging>
+							<file>${basedir}/lib/com.twitter/bootstrap-2.1.0-min.zip</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-angularjs-zip</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>org.angularjs</groupId>
+                  					<artifactId>angularjs</artifactId>
+                  					<version>1.0.2</version>
+							<classifier>min</classifier>
+							<packaging>zip</packaging>
+							<file>${basedir}/lib/org.angularjs/angularjs-1.0.2-min.zip</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-metadata-extractor-jar</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+                        				<groupId>com.drewnoakes</groupId>
+                        				<artifactId>metadata-extractor</artifactId>
+                        				<version>2.3.1</version>
+							<packaging>jar</packaging>
+							<file>${basedir}/lib/com.drewnoakes/metadata-extractor-2.3.1.jar</file>
+						</configuration>
+					</execution>
+
+
+
 
         </executions>
         </plugin>

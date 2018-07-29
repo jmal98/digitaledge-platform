@@ -403,7 +403,9 @@
 				<!--<module>../eucalyptus-ganglia-gmetad-config</module>
 				<module>../eucalyptus-ganglia-gmond-config</module>
 				<module>../eucalyptus-ganglia-metrics</module>-->
-				<module>../cloud-environment-monitor</module>
+
+				<!-- TODO should Eucalyptus specific project be enabled? -->
+				<!--<module>../cloud-environment-monitor</module>-->
 			</modules>
 		</profile>
 		<!-- Link in the plugins controlled by the parent pom of the plugins project for easier tagging and detection of very old plugins
@@ -412,11 +414,11 @@
 			<id>include-plugins-trunk</id>
 			<activation>
 				<file>
-					<exists>../../pluginsTrunk/plugins-parent/pom.xml</exists>
+					<exists>../../digitaledge-plugins/plugins-parent/pom.xml</exists>
 				</file>
 			</activation>
 			<modules>
-				<module>../../pluginsTrunk/plugins-parent</module>
+				<module>../../digitaledge-plugins/plugins-parent</module>
 				<!-- Populate services Moved here to have the copy of built in services done after plugins are built without having to duplicate
 					the dependencies in that project or any other fancy shannangins -->
 				<module>../buildtools-services-deployer/pom.xml</module>
@@ -1015,19 +1017,14 @@
 		<module>../commons-cloud</module>
 		<module>../common-deps</module>
 		<!-- Note: Keeping the commons-hbase project because of use by S2i datasink -->
-		<!-- TODO provide project ? -->
-		<!-- <module>../commons-hbase</module>
-
-		<module>../enunciate-deps</module> -->
-
+		<module>../commons-hbase</module>
+		<module>../enunciate-deps</module>
 
 		<module>../hadoop-config-v2</module>
 		<module>../hadoop-httpfs-config-v2</module>
 		<module>../hive-config-v2</module>
-
-		<!-- TODO provide project ? -->
-		<!--<module>../hue-config-v2</module>
-		<module>../oozie-config-v2</module> -->
+		<module>../hue-config-v2</module>
+		<module>../oozie-config-v2</module>
 
 
 		<module>../parent-war</module>
@@ -1148,16 +1145,15 @@
 		<!--<module>../buildtools-de-oss-deployer</module> -->
 
 
-		<!-- TODO refactor PostBuild to work without direct interaction of S3 -->
+		<!-- TODO refactor PostBuild to work without direct interaction with S3 -->
 		<!--<module>../PostBuild</module>-->
 
 		<module>../commons-transport</module>
 		<module>../cert-generator</module>
 
 		<!-- Business metrics projects created from the summer of 2014 -->
-		<!-- TODO provide project ? -->
-		<!--<module>../bm-api</module>
-		<module>../bm-server</module>-->
+		<module>../bm-api</module>
+		<module>../bm-server</module>
 
 		<!-- Provide test dependency not published to a public repo -->
 		<module>../junit-getterandsetter</module>
