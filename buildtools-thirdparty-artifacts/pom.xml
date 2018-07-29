@@ -414,6 +414,110 @@
 					</execution>
 
 
+					<execution>
+						<id>install-textLayout-swc</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>textLayout</artifactId>
+                        				<version>2.0.0.232</version>
+							<packaging>swc</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/textLayout-2.0.0.232.swc</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-fabridge-swc</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>fabridge</artifactId>
+                        				<version>4.5.1.21328</version>
+							<packaging>swc</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/fabridge-4.5.1.21328.swc</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-osmf-swc</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>osmf</artifactId>
+                        				<version>1.0.0.16316</version>
+							<packaging>swc</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/osmf-1.0.0.16316.swc</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-as3corelib-swc</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe</groupId>
+                        				<artifactId>as3corelib</artifactId>
+                        				<version>0.93</version>
+							<packaging>swc</packaging>
+							<file>${basedir}/lib/com.adobe/as3corelib-0.93.swc</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-robotlegs-swc</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>org.robotlegs</groupId>
+                        				<artifactId>robotlegs-framework</artifactId>
+                        				<version>1.5.2</version>
+							<packaging>swc</packaging>
+							<file>${basedir}/lib/org.robotlegs/robotlegs-framework-v1.5.2.swc</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-ziplib-swc</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.nochump</groupId>
+                        				<artifactId>ziplib</artifactId>
+                        				<version>1.0.5</version>
+							<packaging>swc</packaging>
+							<file>${basedir}/lib/com.nochump/ziplib-1.0.5.swc</file>
+						</configuration>
+					</execution>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         </executions>

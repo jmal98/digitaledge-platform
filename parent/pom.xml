@@ -1037,31 +1037,29 @@
 		<module>../jms-router</module>
 		<module>../systembuilder-lite</module>
 
-		<!-- TODO provide project ? -->
-		<!-- <module>../parent-flex-swc</module>
+		<module>../parent-flex-swc</module>
 		<module>../parent-flex-swf</module>
 		<module>../flexcommons-rtws</module>
-		<module>../flexcommons-tenantutils</module>-->
+		<module>../flexcommons-tenantutils</module>
 
-		<!-- TODO provide project ? -->
-		<!--<module>../DigitalEdgeTheme</module>
+		<module>../DigitalEdgeTheme</module>
 		<module>../parent-flex-runtimetheme</module>
 		<module>../saicblue-general</module>
+
 		<module>../saicblue-tablemgr</module>
 		<module>../saicblue-systemmonitor</module>
 		<module>../saicblue-tenantconsole</module>
 		<module>../saicblue-datamodeleditor</module>
 		<module>../saicblue-systembuilder</module>
-		<module>../saicblue-alertcontroller</module> -->
+		<!-- TODO provide project ? -->
+		<!--<module>../saicblue-alertcontroller</module> -->
 
 		<module>../webfragment-api-common</module>
 		<module>../webfragment-api-security</module>
 		<module>../webfragment-app-common</module>
 		<module>../webfragment-app-security</module>
 		<module>../webfragment-commons-flex</module>
-
-		<!-- TODO provide project ? -->
-		<!--<module>../parent-flex-war</module>-->
+		<module>../parent-flex-war</module>
 
 
 		<module>../CertificateAuthority</module>
@@ -1098,22 +1096,21 @@
 
 
 		<!-- TMS Apps -->
-		<!-- TODO provide project ? -->
-		<!--<module>../webconsole-mgmtconsole</module>
+		<module>../webconsole-mgmtconsole</module>
 		<module>../webconsole-systembuilder</module>
 		<module>../webconsole-datamodeler</module>
 		<module>../webconsole-tablemgr</module>
-		<module>../webconsole-systemmonitor</module>-->
+		<module>../webconsole-systemmonitor</module>
 
 		<!-- System Apps -->
 		<!-- TODO provide project ? -->
 		<!--<module>../webconsole-alertcontroller</module> -->
 
-		<!-- TODO provide project ? -->
+		<!-- TODO provide project (Eucalyptus) ? -->
 		<!--<module>../emi-creator</module> -->
 
 		<!-- Installer -->
-		<!-- TODO provide project ? -->
+		<!-- TODO provide project (Eucalyptus) ? -->
 		<!--<module>../install-common</module>
 		<module>../install_de</module>
 		<module>../install-anywhere-custom</module> -->
