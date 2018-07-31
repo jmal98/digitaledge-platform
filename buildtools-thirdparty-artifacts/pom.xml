@@ -430,6 +430,21 @@
 					</execution>
 
 					<execution>
+						<id>install-textLayout-swz</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>textLayout</artifactId>
+                        				<version>2.0.0.232</version>
+							<packaging>swz</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/textLayout_2.0.0.232.swz</file>
+						</configuration>
+					</execution>
+
+					<execution>
 						<id>install-fabridge-swc</id>
 						<phase>clean</phase>
 						<goals>
@@ -456,6 +471,141 @@
                         				<version>1.0.0.16316</version>
 							<packaging>swc</packaging>
 							<file>${basedir}/lib/com.adobe.flex.framework/osmf-1.0.0.16316.swc</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-osmf-swz</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>osmf</artifactId>
+                        				<version>1.0.0.16316</version>
+							<packaging>swz</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/osmf_1.0.0.16316.swz</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-framework-swz</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>framework</artifactId>
+                        				<version>4.5.1.21328</version>
+							<packaging>swz</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/framework_4.5.1.21328.swz</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-spark-swz</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>spark</artifactId>
+                        				<version>4.5.1.21328</version>
+							<packaging>swz</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/spark_4.5.1.21328.swz</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-sparkskins-swz</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>sparkskins</artifactId>
+                        				<version>4.5.1.21328</version>
+							<packaging>swz</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/sparkskins_4.5.1.21328.swz</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-rpc-swz</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>rpc</artifactId>
+                        				<version>4.5.1.21328</version>
+							<packaging>swz</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/rpc_4.5.1.21328.swz</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-charts-swz</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>charts</artifactId>
+                        				<version>4.5.1.21328</version>
+							<packaging>swz</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/charts_4.5.1.21328.swz</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-spark_dmv-swz</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>spark_dmv</artifactId>
+                        				<version>4.5.1.21328</version>
+							<packaging>swz</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/spark_dmv_4.5.1.21328.swz</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-mz-swz</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>mx</artifactId>
+                        				<version>4.5.1.21328</version>
+							<packaging>swz</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/mx_4.5.1.21328.swz</file>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>install-advancedgrids-swz</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>com.adobe.flex.framework</groupId>
+                        				<artifactId>advancedgrids</artifactId>
+                        				<version>4.5.1.21328</version>
+							<packaging>swz</packaging>
+							<file>${basedir}/lib/com.adobe.flex.framework/advancedgrids_4.5.1.21328.swz</file>
 						</configuration>
 					</execution>
 
