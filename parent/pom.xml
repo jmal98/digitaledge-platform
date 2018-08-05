@@ -1004,10 +1004,7 @@
 		<module>../test-utils</module>
 		<module>../commons-systems</module>
 		<module>../commons-config</module>
-
-		<!-- TODO include project -->
-		<!--<module>../plugins</module>-->
-
+		<module>../plugins</module>
 		<module>../jetty</module>
 		<module>../apacheds</module>
 		<module>../commons-model</module>

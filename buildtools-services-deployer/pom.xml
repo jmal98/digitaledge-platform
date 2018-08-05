@@ -345,7 +345,7 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${staging.target.libs}/transports</outputDirectory>
 									<destFileName>deleidos-rtws-plugin-transport-mongo-plugin-deps.zip</destFileName>
-								</artifactItem>
+								</artifactItem>-->
 
 
 								<artifactItem>
@@ -367,8 +367,8 @@
 									<destFileName>deleidos-rtws-plugin-datasink-sleep-plugin-deps.zip</destFileName>
 								</artifactItem>
 
-
-
+								<!-- TODO provide project ? -->
+								<!--
 								<artifactItem>
 									<groupId>com.deleidos</groupId>
 									<artifactId>datasink-elasticsearch</artifactId>
@@ -807,7 +807,7 @@
 									<destFileName>hadoop-cdh4.3.0-native.tar.gz</destFileName>
 									<overWrite>true</overWrite>
 									<outputDirectory>${staging.target.libs}</outputDirectory>
-								</artifactItem>
+								</artifactItem>-->
 
 								<artifactItem>
 									<groupId>com.deleidos</groupId>
@@ -844,7 +844,7 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${staging.target.libs}/parsers</outputDirectory>
 									<destFileName>deleidos-rtws-plugin-parser-configurable-dns-${project.version}.jar</destFileName>
-								</artifactItem>-->
+								</artifactItem>
 
 								<!-- Dependencies for the cassandra datasink -->
 								<!-- TODO provide project ? -->
@@ -888,7 +888,7 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${staging.target.libs}/datasinks</outputDirectory>
 									<destFileName>deleidos-rtws-plugin-datasink-s2i-hdfs-plugin-deps.zip</destFileName>
-								</artifactItem>
+								</artifactItem>-->
 
 
 
@@ -963,7 +963,7 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${staging.target.libs}/parsers</outputDirectory>
 									<destFileName>deleidos-rtws-plugin-translator-simple-configurable-${project.version}-plugin-deps.zip</destFileName>
-								</artifactItem>-->
+								</artifactItem>
 
 
 								<!-- Grab example process group setup zips -->

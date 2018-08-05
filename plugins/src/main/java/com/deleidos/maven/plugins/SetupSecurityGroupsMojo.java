@@ -201,97 +201,163 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.deleidos.rtws.core.util;
+package com.deleidos.maven.plugins;
 
-import java.util.UUID;
-import net.sf.json.JSONObject;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
-public class StandardHeader {
-	
-	public static final String HEADER_KEY        = "standardHeader";
+import com.deleidos.maven.plugins.common.AccountInformation;
+import com.deleidos.maven.plugins.common.AccountType;
+import com.deleidos.maven.plugins.common.PortService;
+import com.deleidos.maven.plugins.common.Region;
+import com.deleidos.maven.plugins.common.SecurityGroupRule;
+import com.deleidos.maven.plugins.dao.SecurityGroupDao;
 
-	public static final String UUID_KEY          = "uuid";
-	public static final String SOURCE_KEY        = "source";
-	public static final String ACCESS_LABEL_KEY  = "accessLabel";
-	public static final String MODEL_NAME_KEY    = "modelName";
-	public static final String MODEL_VERSION_KEY = "modelVersion";
-	
-	public static final String NO_ACCESS_LABEL   = "UNLABELLED";
-	public static final String NO_SOURCE         = "UNDEFINED";
-	public static final String NO_MODEL_NAME     = "NOMODEL";
-	public static final String NO_MODEL_VERSION  = "0.0";
-	
-	private JSONObject header;
-	
-	public StandardHeader() {
-		UUID uuid = UUID.randomUUID();
-		
-		if (header == null) { header = new JSONObject(); }
-		header.put(UUID_KEY, uuid.toString());
-		header.put(SOURCE_KEY, NO_SOURCE);
-		header.put(ACCESS_LABEL_KEY, NO_ACCESS_LABEL);
-		header.put(MODEL_NAME_KEY, NO_MODEL_NAME);
-		header.put(MODEL_VERSION_KEY, NO_MODEL_VERSION);
-	}
-	
-	public StandardHeader(JSONObject header) {
-		this.header = header;
-	}
-	
-	public void updateUUID() {
-		UUID uuid = UUID.randomUUID();
-		header.put(UUID_KEY, uuid.toString());		
-	}
-	
-	public String getUUID() {
-		return header.getString(UUID_KEY);
-	}
-	
-	public void setUUID(String uuid) {
-		header.put(UUID_KEY, uuid);
-	}
-	
-	public void setSource(String source) {
-		if (source != null) {
-			header.put(SOURCE_KEY, source);			
+/**
+ * Goal which creates the initial set of security groups for a TMS and/or Tenant
+ * account.
+ * 
+ * It's assumed that after these initial set of groups/rules are created, the SW
+ * will proceed to create the additional sets of rules required for correct
+ * system operation.
+ */
+@Mojo(name = "setup")
+@Execute(goal = "setup")
+public class SetupSecurityGroupsMojo extends AbstractMojo {
+
+	/** The account type. (TMS|TENANT) */
+	@Parameter(property = "accountType", defaultValue = "${accountType}", required = true)
+	private AccountType accountType;
+
+	/** The region. (US_EAST_1|US_WEST_1|US_WEST_2|US_GOV_WEST_1) */
+	@Parameter(property = "region", defaultValue = "${region}", required = true)
+	private Region region;
+
+	/** The access key for the account to modify. */
+	@Parameter(property = "accessKey", defaultValue = "${accessKey}", required = true)
+	private String accessKey;
+
+	/** The secret key for the account to modify. */
+	@Parameter(property = "secretKey", defaultValue = "${secretKey}", required = true)
+	private String secretKey;
+
+	/**
+	 * Optionally provide the tenant account number in order to enable tms
+	 * inbound rules.
+	 */
+	@Parameter(property = "tenantAccountNumber", defaultValue = "${tenantAccountNumber}", required = false)
+	private String tenantAccountNumber;
+
+	/**
+	 * Optionally provide the tms account number in order to enable tenant
+	 * inbound rules.
+	 */
+	@Parameter(property = "tmsAccountNumber", defaultValue = "${tmsAccountNumber}", required = false)
+	private String tmsAccountNumber;
+
+	/**
+	 * The dao used for security group manipulation.
+	 * */
+	@Component(role = SecurityGroupDao.class, hint = "SecurityGroupDao")
+	private SecurityGroupDao dao;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.maven.plugin.Mojo#execute()
+	 */
+	public void execute() throws MojoExecutionException {
+
+		AccountInformation account = new AccountInformation();
+		account.setType(accountType);
+		account.setAccessKey(accessKey);
+		account.setSecretKey(secretKey);
+		account.setRegion(region);
+
+		getLog().info("Modifying account (if needed):" + account);
+
+		try {
+
+			dao.addDefaultRules(account);
+
+			/*
+			 * Update inbound for TMS/Tenant
+			 */
+			if (tenantAccountNumber != null
+					&& accountType.equals(AccountType.TMS)) {
+
+				String[] ports = { "80", "443" };
+				String[] sourceGrps = { "internal.tms",
+						"webapp.tms" };
+				String[] targetTenantGrps = { "internal.default",
+						"webapp.default" };
+
+				for (String port : ports) {
+					for (String srcGrp : sourceGrps) {
+						for (String ttg : targetTenantGrps) {
+							SecurityGroupRule sgr = new SecurityGroupRule();
+							sgr.setFromPort(port);
+							sgr.setToPort(port);
+							sgr.setService(PortService.TCP);
+							sgr.setSecurityGroupName(srcGrp);
+							sgr.setSourceRanges(tenantAccountNumber + "/" + ttg);
+
+							getLog().info("\n\n\n");
+							getLog().info(
+									"Adding tenant security group rules to the TMS security groups:"
+											+ ttg);
+
+							dao.addRule(sgr, account);
+
+						}
+					}
+
+				}
+
+			}
+
+			if (tmsAccountNumber != null
+					&& accountType.equals(AccountType.TENANT)) {
+
+				String[] ports = { "80", "443" };
+				String[] sourceGrps = { "internal.default", "webapp.default" };
+				String[] targetTmsGrps = { "internal.tms",
+						"webapp.tms" };
+				for (String port : ports) {
+					for (String srcGrp : sourceGrps) {
+						for (String ttg : targetTmsGrps) {
+							SecurityGroupRule sgr = new SecurityGroupRule();
+							sgr.setFromPort(port);
+							sgr.setToPort(port);
+							sgr.setService(PortService.TCP);
+							sgr.setSecurityGroupName(srcGrp);
+							sgr.setSourceRanges(tmsAccountNumber + "/" + ttg);
+
+							getLog().info("\n\n\n");
+							getLog().info(
+									"Adding TMS security group rules to the tenant security groups: "
+											+ sgr);
+							dao.addRule(sgr, account);
+						}
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			throw new MojoExecutionException(e.getMessage(), e);
 		}
+
 	}
-	
-	public String getSource() {
-		return header.getString(SOURCE_KEY);
+
+	public SecurityGroupDao getDao() {
+		return dao;
 	}
-	
-	public void setAccessLabel(String label) {
-		if (label != null) {
-			header.put(ACCESS_LABEL_KEY, label);			
-		}
-	}
-	
-	public String getAccessLabel() {
-		return header.getString(ACCESS_LABEL_KEY);
-	}
-	
-	public void setModelName(String modelName) {
-		header.put(MODEL_NAME_KEY, modelName);
-	}
-	
-	public String getModelName() {
-		return header.getString(MODEL_NAME_KEY);
-	}
-	
-	public void setModelVersion(int major, int minor) {
-		header.put(MODEL_VERSION_KEY, major + "." + minor);
-	}
-	
-	public String getModelVersion() {
-		return header.getString(MODEL_VERSION_KEY);
-	}
-	
-	public JSONObject getJson() {
-		return header;
-	}
-	
-	public String toString() {
-		return header.toString();
+
+	public void setDao(SecurityGroupDao dao) {
+		this.dao = dao;
 	}
 }
