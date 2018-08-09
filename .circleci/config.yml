@@ -21,7 +21,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: cd .. && git clone git clone https://github.com/jmal98/digitaledge-plugins.git
+      - run: cd .. && git clone https://github.com/jmal98/digitaledge-plugins.git && ls -ltrh 
 
       # Ensure buildtools are present
       - run: cd ../digitaledge-plugins && ./mvnw -f plugin-validator/pom.xml clean install
