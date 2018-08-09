@@ -21,18 +21,18 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: cd .. && git clone https://github.com/jmal98/digitaledge-plugins.git && ls -ltrh 
+      - run: cd .. && git clone https://github.com/jmal98/digitaledge-plugins.git && ls -ltrh
 
       # Ensure buildtools are present
-      - run: cd ../digitaledge-plugins && ./mvnw -f plugin-validator/pom.xml clean install
+      - run: cd ../digitaledge-plugins && ./mvnw -f plugin-validator/pom.xml clean install -B
 
-      - run: cd ../digitaledge-plugins && ./mvnw -f plugins-assembly-descriptor/pom.xml clean install
+      - run: cd ../digitaledge-plugins && ./mvnw -f plugins-assembly-descriptor/pom.xml clean install -B
 
       # Ensure project reactor lines up
-      - run: ./mvnw -f parent/pom.xml clean
+      - run: ./mvnw -f parent/pom.xml clean -B
 
       # Build
-      - run: ./mvnw -f parent/pom.xml install -DskipTests
+      - run: ./mvnw -f parent/pom.xml install -DskipTests -B
 
       - save_cache:
           paths:
@@ -42,7 +42,7 @@ jobs:
       # run tests!
       - run: mkdir ~/repo/junit
 
-      - run: ./mvnw -f parent/pom.xml test
+      - run: ./mvnw -f parent/pom.xml test -B 
 
       - run: find ~/repo/ -name 'TEST*.xml' | xargs -I {} cp -fv {} ~/repo/junit/.
 
