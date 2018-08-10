@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: openjdk:7-jdk
+      - image: jmal98/digitaledge-build-image:7-jdk
 
     working_directory: ~/repo
 
@@ -12,11 +12,6 @@ jobs:
 
     steps:
       - checkout
-
-      # TODO relocate to include Ansible dependency in custom image
-      - run: apt-get update && apt-get install -y python-setuptools python-dev python-yaml libssl-dev libffi-dev
-
-      - run: easy_install ansible==2.6.0
 
       # Download and cache dependencies
       - restore_cache:
@@ -36,7 +31,9 @@ jobs:
       - run: ./mvnw -f parent/pom.xml clean -B
 
       # Build
-      - run: ./mvnw -f parent/pom.xml install -DskipTests -B
+      - run: ./mvnw -f commons-systems/pom.xml clean compile -B -DIN_EUCA_ENV=false -Dincrement=true
+      
+      - run: ./mvnw -f parent/pom.xml install -Dincrement=false -DskipTests -B
 
       - save_cache:
           paths:
