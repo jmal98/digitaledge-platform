@@ -7,8 +7,8 @@ jobs:
     working_directory: ~/repo
 
     environment:
-      # Customize the JVM maximum heap limit
-      MAVEN_OPTS: -Xmx3200m
+      M2_OPTS: -Xms128m -Xmx3200m -XX:PermSize=64m -XX:MaxPermSize=256m -Xss4m 
+      MAVEN_OPTS: -Xms128m -Xmx3200m -XX:PermSize=64m -XX:MaxPermSize=256m -Xss4m
 
     steps:
       - checkout
@@ -26,6 +26,16 @@ jobs:
       - run: cd ../digitaledge-plugins && ./mvnw -f plugin-validator/pom.xml clean install -B
 
       - run: cd ../digitaledge-plugins && ./mvnw -f plugins-assembly-descriptor/pom.xml clean install -B
+      
+      # gets the project dependencies
+      - run: ./mvnw -f parent/pom.xml dependency:go-offline
+      
+      - run: ls -ltra ~/.m2
+      
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "parent/pom.xml" }}
 
       # Ensure project reactor lines up
       - run: ./mvnw -f parent/pom.xml clean -B
@@ -35,17 +45,12 @@ jobs:
       
       - run: ./mvnw -f parent/pom.xml install -Dincrement=false -DskipTests -B
 
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "parent/pom.xml" }}
-
       # run tests!
       - run: mkdir ~/repo/junit
 
       - run: 
            command: ./mvnw -f parent/pom.xml test -B
-           no_output_timeout: 45m
+           no_output_timeout: 4h
 
       - run: find ~/repo/ -name 'TEST*.xml' | xargs -I {} cp -fv {} ~/repo/junit/.
 
