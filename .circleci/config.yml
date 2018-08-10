@@ -43,7 +43,9 @@ jobs:
       # run tests!
       - run: mkdir ~/repo/junit
 
-      - run: ./mvnw -f parent/pom.xml test -B
+      - run: 
+           command: ./mvnw -f parent/pom.xml test -B
+           no_output_timeout: 45m
 
       - run: find ~/repo/ -name 'TEST*.xml' | xargs -I {} cp -fv {} ~/repo/junit/.
 
