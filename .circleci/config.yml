@@ -19,7 +19,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: apt-get update && apt-get install -y gcc libssl-dev libffi-dev make python-dev python-setuptools python-yaml
+      - run: sudo apt-get update && sudo apt-get install -y gcc libssl-dev libffi-dev make openjdk-7-jdk python-dev python-setuptools python-yaml
 
       - run: easy_install ansible==2.6.0
 
