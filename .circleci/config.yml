@@ -8,7 +8,7 @@ jobs:
     environment:
       M2_OPTS: -Xms128m -Xmx5120m -XX:PermSize=64m -XX:MaxPermSize=256m -Xss4m
       MAVEN_OPTS: -Xms128m -Xmx5120m -XX:PermSize=64m -XX:MaxPermSize=256m -Xss4m
-      JAVA_HOME: /usr/lib/jvm/java-7-openjdk
+      JAVA_HOME: /usr/lib/jvm/java-7-openjdk-amd64
 
     steps:
       - checkout
