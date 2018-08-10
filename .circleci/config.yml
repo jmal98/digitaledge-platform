@@ -1,15 +1,13 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: jmal98/digitaledge-build-image:7-jdk
-    resource_class: medium+
+    machine: true
 
     working_directory: ~/repo
 
     environment:
-      M2_OPTS: -Xms128m -Xmx2048m -XX:PermSize=64m -XX:MaxPermSize=256m -Xss4m
-      MAVEN_OPTS: -Xms128m -Xmx2048m -XX:PermSize=64m -XX:MaxPermSize=256m -Xss4m
+      M2_OPTS: -Xms128m -Xmx5120m -XX:PermSize=64m -XX:MaxPermSize=256m -Xss4m
+      MAVEN_OPTS: -Xms128m -Xmx5120m -XX:PermSize=64m -XX:MaxPermSize=256m -Xss4m
 
     steps:
       - checkout
@@ -20,6 +18,10 @@ jobs:
           - v1-dependencies-{{ checksum "parent/pom.xml" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
+
+      - run: apt-get update && apt-get install -y gcc libssl-dev libffi-dev make python-dev python-setuptools python-yaml
+
+      - run: easy_install ansible==2.6.0
 
       - run: cd .. && git clone https://github.com/jmal98/digitaledge-plugins.git && ls -ltrh
 
