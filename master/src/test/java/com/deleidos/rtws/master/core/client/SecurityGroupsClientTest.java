@@ -206,6 +206,7 @@ package com.deleidos.rtws.master.core.client;
 import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.deleidos.rtws.commons.cloud.platform.ServiceInterface;
@@ -214,6 +215,7 @@ import com.deleidos.rtws.commons.cloud.platform.aws.AwsServiceInterface;
 import com.deleidos.rtws.master.core.client.SecurityGroupsClient;
 import com.deleidos.rtws.testutil.auth.DevCiCredentialsProvider;
 
+@Ignore("TODO enable when connected to an AWS account")
 public class SecurityGroupsClientTest {
 
 	private static ServiceInterface service;
