@@ -208,7 +208,7 @@
 	<parent>
 		<artifactId>parent</artifactId>
 		<groupId>com.deleidos</groupId>
-		<version>2.1.1</version>
+		<version>2.2.0-SNAPSHOT</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>common-deps</artifactId>
