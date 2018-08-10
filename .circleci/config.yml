@@ -30,9 +30,6 @@ jobs:
       # Ensure project reactor lines up
       - run: ./mvnw -f parent/pom.xml clean -B
 
-      # gets the project dependencies
-      - run: ./mvnw -f parent/pom.xml dependency:go-offline
-
       - run: ls -ltra ~/.m2
 
       - save_cache:
