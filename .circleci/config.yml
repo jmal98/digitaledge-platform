@@ -26,6 +26,8 @@ jobs:
 
       - run: cd .. && git clone https://github.com/jmal98/digitaledge-plugins.git && ls -ltrh
 
+      - run: whoami
+
       # Ensure buildtools are present
       - run: cd ../digitaledge-plugins && ./mvnw -f plugin-validator/pom.xml clean install -B
 
