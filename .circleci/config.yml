@@ -3,12 +3,13 @@ jobs:
   build:
     docker:
       - image: jmal98/digitaledge-build-image:7-jdk
+    resource_class: medium+
 
     working_directory: ~/repo
 
     environment:
-      M2_OPTS: -Xms128m -Xmx3200m -XX:PermSize=64m -XX:MaxPermSize=256m -Xss4m
-      MAVEN_OPTS: -Xms128m -Xmx3200m -XX:PermSize=64m -XX:MaxPermSize=256m -Xss4m
+      M2_OPTS: -Xms128m -Xmx2048m -XX:PermSize=64m -XX:MaxPermSize=256m -Xss4m
+      MAVEN_OPTS: -Xms128m -Xmx2048m -XX:PermSize=64m -XX:MaxPermSize=256m -Xss4m
 
     steps:
       - checkout
