@@ -13,6 +13,10 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Apply workaround for cache restore after switching from a docker executor to a machine executor
+          command: sudo mkdir /root/.m2 && sudo chmod 777 /root/.m2
+
       # Download and cache dependencies
       - restore_cache:
           keys:
