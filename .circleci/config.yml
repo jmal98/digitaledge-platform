@@ -59,12 +59,8 @@ jobs:
 
       - run:
           name: Build/Test
-          command: ./mvnw -f parent/pom.xml install -Dincrement=false -B
+          command: mkdir ~/repo/junit && ./mvnw -f parent/pom.xml install -Dincrement=false -B ; find ~/repo/ -name 'TEST*.xml' | xargs -I {} cp -fv {} ~/repo/junit/.
           no_output_timeout: 4h
-
-      - run:
-          name: Copy test results to Circleci parsing location
-          command: mkdir ~/repo/junit && find ~/repo/ -name 'TEST*.xml' | xargs -I {} cp -fv {} ~/repo/junit/.
 
       - store_test_results:
           path: ~/repo/junit
