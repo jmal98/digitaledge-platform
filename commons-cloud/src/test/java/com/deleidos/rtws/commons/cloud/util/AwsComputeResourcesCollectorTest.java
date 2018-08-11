@@ -205,12 +205,14 @@ package com.deleidos.rtws.commons.cloud.util;
 
 import static org.junit.Assert.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.deleidos.rtws.commons.cloud.environment.monitor.representations.AvailableCloudComputeResources;
 import com.deleidos.rtws.commons.cloud.platform.aws.AwsConnectionFactory;
 import com.deleidos.rtws.commons.cloud.platform.aws.AwsServiceInterface;
 
+@Ignore("TODO enable when connected to an AWS account")
 public class AwsComputeResourcesCollectorTest {
 
 	@Test

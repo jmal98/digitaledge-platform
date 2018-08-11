@@ -20,21 +20,31 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           #- v1-dependencies-
 
-      - run: sudo apt-get update && sudo apt-get install -y gcc libssl-dev libffi-dev make openjdk-7-jdk python-dev python-setuptools python-yaml
+      - run:
+          name: Install packages required for build
+          command: sudo apt-get update && sudo apt-get install -y gcc libssl-dev libffi-dev make openjdk-7-jdk python-dev python-setuptools python-yaml
 
-      - run: easy_install ansible==2.6.0
+      - run:
+          name: Install Ansible
+          command: easy_install ansible==2.6.0
 
-      - run: cd .. && git clone https://github.com/jmal98/digitaledge-plugins.git && ls -ltrh
+      - run:
+          name: Clone core plugins repository
+          command: cd .. && git clone https://github.com/jmal98/digitaledge-plugins.git && ls -ltrh
 
       - run: whoami
 
-      # Ensure buildtools are present
-      - run: cd ../digitaledge-plugins && ./mvnw -f plugin-validator/pom.xml clean install -B
+      - run:
+          name: Ensure buildtools are present
+          command: cd ../digitaledge-plugins && ./mvnw -f plugin-validator/pom.xml clean install -B
 
-      - run: cd ../digitaledge-plugins && ./mvnw -f plugins-assembly-descriptor/pom.xml clean install -B
+      - run:
+          name: Ensure custom descriptors are present
+          command: cd ../digitaledge-plugins && ./mvnw -f plugins-assembly-descriptor/pom.xml clean install -B
 
-      # Ensure project reactor lines up
-      - run: ./mvnw -f parent/pom.xml clean -B
+      - run:
+          name: Ensure project reactor lines up
+          command: ./mvnw -f parent/pom.xml clean -B
 
       - run: ls -ltra ~/.m2
 
@@ -43,19 +53,18 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "parent/pom.xml" }}
 
-      # Build
-      - run: ./mvnw -f commons-systems/pom.xml clean compile -B -DIN_EUCA_ENV=false -Dincrement=true
-
-      - run: ./mvnw -f parent/pom.xml install -Dincrement=false -DskipTests -B
-
-      # run tests!
-      - run: mkdir ~/repo/junit
+      - run:
+          name: Increment artifact timestamp label
+          command: ./mvnw -f commons-systems/pom.xml clean compile -B -DIN_EUCA_ENV=false -Dincrement=true
 
       - run:
-           command: ./mvnw -f parent/pom.xml test -B
-           no_output_timeout: 4h
+          name: Build/Test
+          command: ./mvnw -f parent/pom.xml install -Dincrement=false -B
+          no_output_timeout: 4h
 
-      - run: find ~/repo/ -name 'TEST*.xml' | xargs -I {} cp -fv {} ~/repo/junit/.
+      - run:
+          name: Copy test results to Circleci parsing location
+          command: mkdir ~/repo/junit && find ~/repo/ -name 'TEST*.xml' | xargs -I {} cp -fv {} ~/repo/junit/.
 
       - store_test_results:
           path: ~/repo/junit

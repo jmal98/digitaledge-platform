@@ -216,6 +216,7 @@ import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.amazonaws.AmazonClientException;
@@ -233,6 +234,7 @@ import com.deleidos.rtws.commons.cloud.beans.Process;
 import com.deleidos.rtws.testutil.DevGatewayUtil;
 import com.deleidos.rtws.testutil.exception.GatewayInstanceNotFoundException;
 
+@Ignore("TODO enable when connected to an AWS account")
 public class AwsServiceInterfaceTest {
 
 	final static String FW_GROUP_JUNIT = "rtws.junit.cloudservicetest";

@@ -232,6 +232,7 @@ import com.deleidos.rtws.commons.cloud.exception.StorageException;
 import com.deleidos.rtws.commons.cloud.platform.StorageInterface;
 import com.deleidos.rtws.commons.config.PropertiesUtils;
 
+@Ignore("TODO enable when connected to an AWS account")
 public class JetSetStorageServiceForGovCloudTest {
 	private String basedir;
 	Class<?>[] DEFAULT_CLASSES = {TestMarshalWrapper.class, JetSetStorageService.class, JetSetThreadedStorageService.class };

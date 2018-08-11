@@ -205,8 +205,10 @@ package com.deleidos.rtws.commons.cloud.platform.aws;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore("TODO enable when connected to an AWS account")
 public class MiscTest {
 
 	private String ciUserId = "911273604059";

@@ -215,6 +215,7 @@ import org.junit.Test;
 
 import com.deleidos.rtws.commons.cloud.util.CloudProviderUtil;
 
+@Ignore("TODO enable when connected to an AWS account")
 public class AvailableCloudComputeResourcesTest {
 
 	@BeforeClass
