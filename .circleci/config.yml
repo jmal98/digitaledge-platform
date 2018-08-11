@@ -13,16 +13,12 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: Apply workaround for cache restore after switching from a docker executor to a machine executor
-          command: sudo mkdir /root/.m2 && sudo chmod 777 /root/.m2
-
       # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "parent/pom.xml" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          #- v1-dependencies-
 
       - run: sudo apt-get update && sudo apt-get install -y gcc libssl-dev libffi-dev make openjdk-7-jdk python-dev python-setuptools python-yaml
 
