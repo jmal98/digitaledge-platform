@@ -55,12 +55,22 @@ jobs:
 
       - run:
           name: Increment artifact timestamp label
-          command: ./mvnw -f commons-systems/pom.xml clean compile -B -DIN_EUCA_ENV=false -Dincrement=true
+          command: ./mvnw -f commons-systems/pom.xml clean compile -DIN_EUCA_ENV=false -Dincrement=true -B
 
       - run:
           name: Build/Test
-          command: mkdir ~/repo/junit && ./mvnw -f parent/pom.xml install -Dincrement=false -B ; find ~/repo/ -name 'TEST*.xml' | xargs -I {} cp -fv {} ~/repo/junit/.
+          command: ./mvnw -f parent/pom.xml install -Dincrement=false -B
           no_output_timeout: 4h
 
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/junit/
+            find ~/ -type f -regex ".*/target/surefire-reports/.*xml" -exec cp -fv {} ~/junit/ \;
+          when: always
+
       - store_test_results:
-          path: ~/repo/junit
+          path: ~/junit
+
+      - store_artifacts:
+          path: ~/junit
