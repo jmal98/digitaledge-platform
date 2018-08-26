@@ -1,0 +1,22 @@
+---  
+  # Setup: /mnt/appfs      
+  - name: DigitalEdge release pre-download setup
+    file: path={{ rtws_appfs }}/release/{{ rtws_release }} owner=rtws group=rtws mode=0775 state=directory recurse=yes
+       
+  - name: DigitalEdge services pre-download stetup
+    file: path={{ rtws_appfs }}/services/{{ dir }} owner=rtws group=rtws mode=0775 state=directory recurse=yes
+    loop:
+      - transports
+      - datasinks
+      - parsers
+      - enrichments
+    loop_control:
+      loop_var: dir
+
+  - name: Ensure correct permissions 
+    file: path={{ rtws_appfs }}/{{ dir }} owner=rtws group=rtws mode=0755 state=directory recurse=yes
+    loop:
+      - release
+      - services
+    loop_control:
+      loop_var: dir

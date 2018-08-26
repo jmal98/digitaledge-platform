@@ -1,0 +1,48 @@
+---
+  - name: Disable requiretty
+    replace: dest=/etc/sudoers owner=root group=root mode=0440 regexp='Defaults    requiretty' replace='#Defaults    requiretty'
+              backup=yes validate='visudo -cf %s'
+  
+  - include: "{{ task }}"
+    loop:
+      - setup-jetty.yml
+      - setup-appfs.yml
+      - setup-rtws.yml
+    loop_control:
+      loop_var: task
+      
+  - template: 
+      src: bootstrap_master.j2 
+      dest: /sbin/bootstrap 
+      owner: root
+      group: root 
+      mode: 0555 
+      force: yes
+    when: is_tms_master.stat.exists
+    
+  - template: 
+      src: bootstrap_auth.j2 
+      dest: /sbin/bootstrap 
+      owner: root
+      group: root 
+      mode: 0555 
+      force: yes
+    when: is_tms_auth.stat.exists
+    
+  - template: 
+      src: bootstrap_api.j2 
+      dest: /sbin/bootstrap 
+      owner: root
+      group: root 
+      mode: 0555 
+      force: yes
+    when: is_tms_api.stat.exists
+    
+  - template: 
+      src: bootstrap_default.j2 
+      dest: /sbin/bootstrap 
+      owner: root
+      group: root 
+      mode: 0555 
+      force: yes
+    when: is_tms_default.stat.exists

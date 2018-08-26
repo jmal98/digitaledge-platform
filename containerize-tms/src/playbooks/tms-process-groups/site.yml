@@ -1,0 +1,33 @@
+---
+- hosts: localhost
+  vars:
+    rtws_domain: tms.local.deleidos.com
+    rtws_home: /usr/local/rtws
+    rtws_appfs: /mnt/appfs
+    playbook_home: /tmp/.pbook
+  vars_files:
+    - params.yml
+    
+  pre_tasks:
+    - stat:
+        path: /etc/default/is_tms_master
+      register: is_tms_master
+    
+    - stat:
+        path: /etc/default/is_tms_auth
+      register: is_tms_auth
+    
+    - stat:
+        path: /etc/default/is_tms_api
+      register: is_tms_api
+    
+    - stat:
+        path: /etc/default/is_tms_default
+      register: is_tms_default
+    
+    
+  roles:
+  - { role: users, tags: ['users'] }
+  - { role: release, tags: ['release'] }
+  - { role: configuration, tags: ['configuration'] }
+  - { role: master, tags: ['master'], when: is_tms_master.stat.exists }

@@ -1,0 +1,20 @@
+---
+  - file: path=/usr/local/rtws/webapps-repository/conf owner=rtws group=rtws mode=0775 state=directory recurse=no
+ 
+  - unarchive: src={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} dest=/usr/local/rtws
+    loop:
+      - deleidos-rtws-webapps-repository.tar.gz
+    loop_control:
+      loop_var: sw
+      
+  - unarchive: src={{ rtws_appfs }}/configuration/{{ rtws_domain }}//{{ sw }} dest=/usr/local/rtws/webapps-repository/conf
+    loop:
+      - deleidos-rtws-webapp-repository-conf.tar.gz
+    loop_control:
+      loop_var: sw
+      
+  - unarchive: src={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} dest=/usr/local/jetty/webapps
+    loop:
+      - deleidos-rtws-webapps-repository-webapp.tar.gz
+    loop_control:
+      loop_var: sw

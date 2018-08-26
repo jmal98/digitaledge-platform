@@ -1153,5 +1153,8 @@
 		<module>../junit-getterandsetter</module>
 		<module>../buildtools-thirdparty-artifacts</module>
 
+		<!-- Create a Dockerized TMS (Setup Tools) -->
+		<module>../containerize-tms</module>
+
 	</modules>
 </project>

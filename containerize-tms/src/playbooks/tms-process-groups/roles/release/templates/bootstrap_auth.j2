@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+if [ ! -d /mnt/rdafs ]; then
+   echo "ERROR: A volume is required for the container and must be mounted at /mnt/rdafs"
+   exit 1
+fi
+
+sleep 99d

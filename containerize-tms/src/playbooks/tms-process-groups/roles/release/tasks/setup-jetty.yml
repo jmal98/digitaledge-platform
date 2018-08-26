@@ -1,0 +1,40 @@
+---  
+  # Setup: /usr/local/jetty 
+  - file: path={{ dir }} owner=jetty group=jetty mode=0775 state=directory recurse=no
+    loop:
+      - /usr/local/jetty
+      - /usr/local/jetty/webapps-plus
+    loop_control:
+      loop_var: dir
+   
+  - name: Extracting release to /usr/local/rtws
+    unarchive: src={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} dest=/usr/local/jetty/
+    loop:
+      - deleidos-rtws-jetty-standard.tar.gz
+    loop_control:
+      loop_var: sw  
+      
+  
+  - name: Removing release tar.gz(s) 
+    file: path={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} state=absent
+    loop:
+      - deleidos-rtws-jetty-standard.tar.gz    
+    loop_control:
+      loop_var: sw  
+          
+  - name: Making shell scripts executable
+    shell: chmod a+x {{ dir }}/*.sh
+    loop:
+      - /usr/local/jetty/bin
+    loop_control:
+      loop_var: dir
+  
+  - name: Ensuring shellscripts do not have Windows line feeds
+    shell: fromdos {{ dir }}/*.sh
+    loop:
+      - /usr/local/jetty/bin
+    loop_control:
+      loop_var: dir
+
+  - name: Ensure /usr/local/jetty has the correct permissions
+    file: path=/usr/local/jetty owner=jetty group=jetty mode=0775 state=directory recurse=yes

@@ -1,0 +1,33 @@
+#!/bin/bash -e
+
+source /etc/rtwsrc
+
+
+if [ ! -d /mnt/rdafs ]; then
+   echo "ERROR: A volume is required for the container and must be mounted at /mnt/rdafs"
+   exit 1
+fi
+
+
+if [ ! -d /mnt/rdafs/tmp/repository ]; then
+   mkdir -pv /mnt/rdafs/tmp/repository
+   chown -c jetty:rtws /mnt/rdafs/tmp/repository
+fi
+
+/usr/local/jetty/bin/jetty_setup.sh
+chmod -c 755 /usr/local/rtws/webapps-repository/bin/*.sh
+fromdos /usr/local/rtws/webapps-repository/bin/*.sh
+/usr/local/rtws/commons-core/bin/boot/rtws_property_replace.pl /usr/local/rtws/properties/rtws-common.properties /usr/local/rtws/webapps-repository/bin/setup_repository.sh
+/usr/local/rtws/webapps-repository/bin/setup_repository.sh /usr/local/rtws/webapps-repository/conf
+
+/usr/local/rtws/commons-core/bin/boot/rtws_property_replace.pl /usr/local/rtws/properties/rtws-common.properties /usr/local/jetty/webapps/repository/WEB-INF/web.xml
+/usr/local/rtws/commons-core/bin/boot/rtws_property_replace.pl /usr/local/rtws/properties/rtws-common.properties /usr/local/jetty/webapps/repository/WEB-INF/templates/bootstrap.properties
+
+
+
+
+
+/usr/local/jetty/bin/jetty_start.sh
+
+
+sleep 99d

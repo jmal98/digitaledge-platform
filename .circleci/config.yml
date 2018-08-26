@@ -59,7 +59,7 @@ jobs:
 
       - run:
           name: Build/Test
-          command: ./mvnw -f parent/pom.xml install -Dincrement=false -B
+          command: ./mvnw -f parent/pom.xml install -Dincrement=false -B -P docker-image
           no_output_timeout: 4h
 
       - run:

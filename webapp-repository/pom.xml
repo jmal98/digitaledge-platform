@@ -650,7 +650,7 @@
 					<execution>
 						<configuration>
 							<finalName>${rtws.final.name}</finalName>
-							<appendAssemblyId>false</appendAssemblyId>
+							<appendAssemblyId>true</appendAssemblyId>
 							<descriptors>
 								<descriptor>src/main/assembly/dist.xml</descriptor>
 							</descriptors>
@@ -665,7 +665,7 @@
 					<execution>
 						<configuration>
 							<finalName>${rtws.final.name}-webapp</finalName>
-							<appendAssemblyId>false</appendAssemblyId>
+							<appendAssemblyId>true</appendAssemblyId>
 							<descriptors>
 								<descriptor>src/main/assembly/dist-webapp.xml</descriptor>
 							</descriptors>

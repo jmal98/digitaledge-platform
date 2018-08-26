@@ -1,0 +1,49 @@
+version: '3'
+services:
+  master:
+    image: jmal98/digitaledge-master.tms.local.deleidos.com:rtws-nightly_2018-08-17_2118
+    networks:
+      tms:
+        aliases:
+          - master.tms.local.deleidos.com
+    volumes:
+       - master_rdafs:/mnt/rdafs
+    ports:
+     - "0:8443"
+
+  auth:
+    image: jmal98/digitaledge-auth.tms.local.deleidos.com:rtws-nightly_2018-08-17_2118
+    networks:
+      tms:
+        aliases:
+          - auth.tms.local.deleidos.com
+    volumes:
+       - auth_rdafs:/mnt/rdafs
+    ports:
+     - "0:8443"
+
+  api:
+    image: jmal98/digitaledge-api.tms.local.deleidos.com:rtws-nightly_2018-08-17_2118
+    networks:
+      tms:
+        aliases:
+          - api.tms.local.deleidos.com
+    ports:
+     - "0:8443"
+
+  default:
+    image: jmal98/digitaledge-default.tms.local.deleidos.com:rtws-nightly_2018-08-17_2118
+    networks:
+      tms:
+        aliases:
+          - default.tms.local.deleidos.com
+    ports:
+     - "0:8443"
+     
+networks:
+  tms:
+  
+volumes:
+  master_rdafs:
+  
+  auth_rdafs:

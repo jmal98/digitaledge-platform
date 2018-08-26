@@ -203,7 +203,8 @@
        limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -229,17 +230,9 @@
 					<plugin>
 						<artifactId>maven-antrun-plugin</artifactId>
 						<dependencies>
-							<!-- <dependency>
-								<groupId>ant-contrib</groupId>
-								<artifactId>ant-contrib</artifactId>
-								<version>1.0b3</version>
-								<exclusions>
-								<exclusion>
-								<groupId>ant</groupId>
-								<artifactId>ant</artifactId>
-								</exclusion>
-								</exclusions>
-								</dependency> -->
+							<!-- <dependency> <groupId>ant-contrib</groupId> <artifactId>ant-contrib</artifactId> 
+								<version>1.0b3</version> <exclusions> <exclusion> <groupId>ant</groupId> 
+								<artifactId>ant</artifactId> </exclusion> </exclusions> </dependency> -->
 							<dependency>
 								<groupId>org.apache.ant</groupId>
 								<artifactId>ant</artifactId>
@@ -310,17 +303,9 @@
 					<plugin>
 						<artifactId>maven-antrun-plugin</artifactId>
 						<dependencies>
-							<!-- <dependency>
-								<groupId>ant-contrib</groupId>
-								<artifactId>ant-contrib</artifactId>
-								<version>1.0b3</version>
-								<exclusions>
-								<exclusion>
-								<groupId>ant</groupId>
-								<artifactId>ant</artifactId>
-								</exclusion>
-								</exclusions>
-								</dependency> -->
+							<!-- <dependency> <groupId>ant-contrib</groupId> <artifactId>ant-contrib</artifactId> 
+								<version>1.0b3</version> <exclusions> <exclusion> <groupId>ant</groupId> 
+								<artifactId>ant</artifactId> </exclusion> </exclusions> </dependency> -->
 							<dependency>
 								<groupId>org.apache.ant</groupId>
 								<artifactId>ant</artifactId>
@@ -370,6 +355,50 @@
 							</execution>
 						</executions>
 					</plugin>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>tms.local.deleidos.com-artifacts</id>
+								<phase>package</phase>
+								<goals>
+									<goal>attach-artifact</goal>
+								</goals>
+								<configuration>
+									<artifacts>
+
+										<artifact>
+											<file>${project.build.directory}/dist/configuration/com.deleidos.local.tms-common-properties.tar.gz</file>
+											<type>tar.gz</type>
+											<classifier>com.deleidos.local.tms-common-properties</classifier>
+										</artifact>
+
+										<artifact>
+											<file>${project.build.directory}/dist/configuration/com.deleidos.local.tms-common-conf.tar.gz</file>
+											<type>tar.gz</type>
+											<classifier>com.deleidos.local.tms-common-conf</classifier>
+										</artifact>
+
+										<artifact>
+											<file>${project.build.directory}/dist/configuration/com.deleidos.local.tms-master.tar.gz</file>
+											<type>tar.gz</type>
+											<classifier>com.deleidos.local.tms-master</classifier>
+										</artifact>
+
+										<artifact>
+											<file>${project.build.directory}/dist/configuration/com.deleidos.local.tms-webapp-repository.tar.gz</file>
+											<type>tar.gz</type>
+											<classifier>com.deleidos.local.tms-webapp-repository</classifier>
+										</artifact>
+
+									</artifacts>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
