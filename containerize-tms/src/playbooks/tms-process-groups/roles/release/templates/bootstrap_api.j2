@@ -1,3 +1,26 @@
 #!/bin/bash -e
 
-sleep 99d
+source /etc/rtwsrc
+
+SHUTDOWN=false
+
+_term() { 
+  printf "%s\n" "Caught SIGTERM signal!" 
+  SHUTDOWN=true
+}
+
+trap _term 15
+
+[ -f /etc/de/functions ] && . /etc/de/functions
+
+
+
+
+cd /usr/local/jetty/bin/
+   /usr/local/jetty/bin/jetty_start.sh
+cd -
+   
+jetty_watchdog
+
+cd /usr/local/jetty/bin/
+   /usr/local/jetty/bin/jetty_stop.sh

@@ -23,7 +23,7 @@
       loop_var: sw  
           
   - name: Making shell scripts executable
-    shell: chmod a+x {{ dir }}/*.sh
+    shell: find {{ dir }} -name '*.sh' -exec chmod -c a+x {} \;
     loop:
       - /usr/local/jetty/bin
     loop_control:

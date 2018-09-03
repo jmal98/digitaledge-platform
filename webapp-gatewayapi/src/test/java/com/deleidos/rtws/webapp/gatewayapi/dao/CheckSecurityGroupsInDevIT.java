@@ -208,6 +208,7 @@ import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -220,6 +221,7 @@ import com.amazonaws.services.ec2.model.UserIdGroupPair;
 
 import static org.junit.Assert.*;
 
+@Ignore("TODO enable when connected to a tenant account")
 public class CheckSecurityGroupsInDevIT {
 
 	private static AmazonEC2 ec2 = new AmazonEC2Client(new AWSCredentials() {
@@ -227,13 +229,13 @@ public class CheckSecurityGroupsInDevIT {
 		@Override
 		public String getAWSSecretKey() {
 
-			return "kyokf7K95kyHnVnJhb8vF8jlV3rBYnIkd/Kx3TAy";
+			return "redacted";
 		}
 
 		@Override
 		public String getAWSAccessKeyId() {
 
-			return "AKIAIBESDYWW5ZCJOKCQ";
+			return "redacted";
 		}
 	});
 

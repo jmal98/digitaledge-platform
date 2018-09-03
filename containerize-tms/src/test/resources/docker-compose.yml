@@ -13,6 +13,8 @@ services:
 
   auth:
     image: jmal98/digitaledge-auth.tms.local.deleidos.com:rtws-nightly_2018-08-17_2118
+    depends_on:
+      - master
     networks:
       tms:
         aliases:
@@ -24,6 +26,9 @@ services:
 
   api:
     image: jmal98/digitaledge-api.tms.local.deleidos.com:rtws-nightly_2018-08-17_2118
+    depends_on:
+      - master
+      - auth
     networks:
       tms:
         aliases:
@@ -33,6 +38,10 @@ services:
 
   default:
     image: jmal98/digitaledge-default.tms.local.deleidos.com:rtws-nightly_2018-08-17_2118
+    depends_on:
+      - master
+      - auth
+      - api
     networks:
       tms:
         aliases:

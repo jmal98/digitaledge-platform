@@ -214,10 +214,12 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.Ignore;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.deleidos.rtws.commons.monitor.core.ManagedMonitor.MonitorStatus;
 
+@Ignore("TODO enable when connected to an AWS account")
 public class SimpleEmailStatusNotifierIT {
 
 	@BeforeClass
@@ -241,12 +243,12 @@ public class SimpleEmailStatusNotifierIT {
 				@Override
 				public String getAWSSecretKey() {
 
-					return "kyokf7K95kyHnVnJhb8vF8jlV3rBYnIkd/Kx3TAy";
+					return "redacted";
 				}
 
 				@Override
 				public String getAWSAccessKeyId() {
-					return "AKIAIBESDYWW5ZCJOKCQ";
+					return "redacted";
 				}
 			}, MonitorStatus.OK, null, "mailto:jamal.t.bullock@leidos.com");
 		}
@@ -263,12 +265,12 @@ public class SimpleEmailStatusNotifierIT {
 				@Override
 				public String getAWSSecretKey() {
 
-					return "kyokf7K95kyHnVnJhb8vF8jlV3rBYnIkd/Kx3TAy";
+					return "redacted";
 				}
 
 				@Override
 				public String getAWSAccessKeyId() {
-					return "AKIAIBESDYWW5ZCJOKCQ";
+					return "redacted";
 				}
 			}, MonitorStatus.ERROR, errors, "mailto:jamal.t.bullock@leidos.com");
 		}

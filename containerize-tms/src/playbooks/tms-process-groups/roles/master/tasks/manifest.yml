@@ -16,5 +16,13 @@
   - unarchive: src={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} dest=/usr/local/jetty/webapps
     loop:
       - deleidos-rtws-webapps-repository-webapp.tar.gz
+      - deleidos-rtws-webapps-logapi-webapp.tar.gz
+      #- deleidos-rtws-webapps-caapi-webapp.tar.gz
     loop_control:
       loop_var: sw
+      
+  #- unarchive: src={{ rtws_appfs }}/configuration/{{ rtws_domain }}//{{ sw }} dest=/usr/local/jetty/webapps/logapi/WEB-INF/classes
+  #  loop:
+  #    - deleidos-rtws-webapp-logapi-conf.tar.gz
+  #  loop_control:
+  #    loop_var: sw

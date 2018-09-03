@@ -25,7 +25,7 @@
       
   
   - name: Making python scripts executable
-    shell: chmod a+x {{ dir }}/*.py
+    shell: find {{ dir }} -name '*.py' -exec chmod -c a+x {} \;
     loop:
       - /usr/local/rtws/commons-core/bin/boot
     loop_control:
@@ -40,7 +40,7 @@
       
           
   - name: Making shell scripts executable
-    shell: chmod a+x {{ dir }}/*.sh
+    shell: find {{ dir }} -name '*.sh' -exec chmod -c a+x {} \;
     loop:
       - /usr/local/rtws/commons-core/bin/boot
       - /usr/local/rtws/boot-apps/bin

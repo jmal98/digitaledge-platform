@@ -1,0 +1,28 @@
+#
+# Re-usable functions for containerized process groups
+#
+#
+
+jetty_watchdog() {
+
+   echo "Watching Jetty..."
+   JETTY_PID=/var/run/jetty.pid
+   
+   while [ "${SHUTDOWN}" != "true" ]
+   do
+      if [ ! -f ${JETTY_PID} ]; then
+         echo "ERROR: ${JETTY_PID} not found"
+         return
+      fi
+      
+      JPID="$(cat ${JETTY_PID})"
+      if [ "$(pgrep -c --ns ${JPID} )" -eq 0 ]; then
+         echo "ERROR: Jetty has stopped"
+         return
+      else
+         sleep 1m
+      fi
+   done
+   echo "Shutdown requested? ${SHUTDOWN}"
+   
+}

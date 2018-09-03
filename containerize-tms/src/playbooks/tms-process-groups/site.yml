@@ -31,3 +31,6 @@
   - { role: release, tags: ['release'] }
   - { role: configuration, tags: ['configuration'] }
   - { role: master, tags: ['master'], when: is_tms_master.stat.exists }
+  - { role: auth, tags: ['auth'], when: is_tms_auth.stat.exists }
+  - { role: api, tags: ['api'], when: is_tms_api.stat.exists }
+  - { role: default, tags: ['default'], when: is_tms_default.stat.exists }

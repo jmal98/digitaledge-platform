@@ -1,0 +1,43 @@
+---
+  - copy:
+      src: "{{ rtws_appfs }}/release/{{ rtws_release }}/DatabaseWrapper.jar"
+      dest: /usr/local/rtws/commons-core/lib/DatabaseWrapper.jar
+      owner: rtws
+      group: rtws
+      mode: 0444
+      
+  - unarchive: src={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} dest=/usr/local/rtws
+    loop:
+      - deleidos-rtws-system-database.tar.gz
+    loop_control:
+      loop_var: sw
+    
+  - name: Adding the apacheds group
+    group: name=apacheds gid=1004 state=present
+      
+  - name: Adding the apacheds user
+    user: name=apacheds uid=1004 shell=/bin/bash createhome=no state=present group=apacheds groups=
+    
+  - file: path=/home/apacheds owner=apacheds group=apacheds mode=0775 state=directory
+  
+  - unarchive: src={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} dest=/usr/local
+    loop:
+      - deleidos-rtws-apacheds.tar.gz
+    loop_control:
+      loop_var: sw
+      
+  - file: path={{ dir }} owner=apacheds group=apacheds mode=0755 state=directory recurse=yes
+    loop:
+      - /usr/local/apacheds_deployment
+      - /usr/local/apacheds-1.5.7
+      - /usr/local/apacheds-2.0.0-M16
+    loop_control:
+      loop_var: dir
+      
+  - unarchive: src={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} dest=/usr/local/jetty/webapps
+    loop:
+      - deleidos-rtws-webapps-gatewayapi-webapp.tar.gz
+      - deleidos-rtws-webapps-dbapi-webapp.tar.gz
+    loop_control:
+      loop_var: sw
+ 

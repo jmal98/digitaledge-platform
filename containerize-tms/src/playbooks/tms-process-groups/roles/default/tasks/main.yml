@@ -1,0 +1,9 @@
+---
+  - include: "{{ task }}"
+    loop:
+      - manifest.yml
+    loop_control:
+      loop_var: task
+      
+  - name: Ensure correct permissions on {{ rtws_home }}
+    file: path={{ rtws_home }} owner=rtws group=rtws mode=0755 state=directory recurse=yes

@@ -445,16 +445,6 @@
 
 								<artifactItem>
 									<groupId>com.deleidos</groupId>
-									<artifactId>DatabaseWrapper</artifactId>
-									<version>${project.version}</version>
-									<type>jar</type>
-									<overWrite>true</overWrite>
-									<outputDirectory>${project.build.directory}/master/release</outputDirectory>
-									<destFileName>DatabaseWrapper.jar</destFileName>
-								</artifactItem>
-
-								<artifactItem>
-									<groupId>com.deleidos</groupId>
 									<artifactId>boot-apps</artifactId>
 									<version>${project.version}</version>
 									<type>tar.gz</type>
@@ -654,6 +644,47 @@
 
 								<artifactItem>
 									<groupId>com.deleidos</groupId>
+									<artifactId>deleidos-rtws-apacheds</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/auth/release</outputDirectory>
+									<destFileName>deleidos-rtws-apacheds.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>webapp-gatewayapi</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<classifier>dist-webapp</classifier>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/auth/release</outputDirectory>
+									<destFileName>deleidos-rtws-webapps-gatewayapi-webapp.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>deleidos-rtws-webapps-dbapi</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/auth/release</outputDirectory>
+									<destFileName>deleidos-rtws-webapps-dbapi-webapp.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>system-database</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/auth/release</outputDirectory>
+									<destFileName>deleidos-rtws-system-database.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
 									<artifactId>commons-systems</artifactId>
 									<version>${project.version}</version>
 									<type>tar.gz</type>
@@ -739,16 +770,6 @@
 
 								<artifactItem>
 									<groupId>com.deleidos</groupId>
-									<artifactId>DatabaseWrapper</artifactId>
-									<version>${project.version}</version>
-									<type>jar</type>
-									<overWrite>true</overWrite>
-									<outputDirectory>${project.build.directory}/api/release</outputDirectory>
-									<destFileName>DatabaseWrapper.jar</destFileName>
-								</artifactItem>
-
-								<artifactItem>
-									<groupId>com.deleidos</groupId>
 									<artifactId>boot-apps</artifactId>
 									<version>${project.version}</version>
 									<type>tar.gz</type>
@@ -766,6 +787,46 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${project.build.directory}/api/release</outputDirectory>
 									<destFileName>deleidos-rtws-cert-auth-dist.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>deleidos-rtws-webapps-dbapi</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/api/release</outputDirectory>
+									<destFileName>deleidos-rtws-webapps-dbapi-webapp.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>webapp-logapi</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/api/release</outputDirectory>
+									<destFileName>deleidos-rtws-webapps-logapi-webapp.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>deleidos-rtws-webapps-tenantapi</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/api/release</outputDirectory>
+									<destFileName>deleidos-rtws-webapps-tenantapi-webapp.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>deleidos-rtws-webapps-ingestapi</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/api/release</outputDirectory>
+									<destFileName>deleidos-rtws-webapps-ingestapi-webapp.tar.gz</destFileName>
 								</artifactItem>
 
 								<artifactItem>
@@ -855,16 +916,6 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${project.build.directory}/default/release</outputDirectory>
 									<destFileName>deleidos-rtws-commons-core.tar.gz</destFileName>
-								</artifactItem>
-
-								<artifactItem>
-									<groupId>com.deleidos</groupId>
-									<artifactId>DatabaseWrapper</artifactId>
-									<version>${project.version}</version>
-									<type>jar</type>
-									<overWrite>true</overWrite>
-									<outputDirectory>${project.build.directory}/default/release</outputDirectory>
-									<destFileName>DatabaseWrapper.jar</destFileName>
 								</artifactItem>
 
 								<artifactItem>
@@ -1015,7 +1066,6 @@
 									<goal>exec</goal>
 								</goals>
 								<configuration>
-									<skip>true</skip>
 									<executable>docker</executable>
 									<workingDirectory>${project.build.directory}/auth</workingDirectory>
 									<arguments>
@@ -1040,7 +1090,6 @@
 									<goal>exec</goal>
 								</goals>
 								<configuration>
-									<skip>true</skip>
 									<executable>docker</executable>
 									<workingDirectory>${project.build.directory}/api</workingDirectory>
 									<arguments>
@@ -1065,7 +1114,6 @@
 									<goal>exec</goal>
 								</goals>
 								<configuration>
-									<skip>true</skip>
 									<executable>docker</executable>
 									<workingDirectory>${project.build.directory}/default</workingDirectory>
 									<arguments>

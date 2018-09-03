@@ -2,6 +2,19 @@
 
 source /etc/rtwsrc
 
+SHUTDOWN=false
+
+_term() { 
+  printf "%s\n" "Caught SIGTERM signal!" 
+  SHUTDOWN=true
+}
+
+trap _term 15
+
+[ -f /etc/de/functions ] && . /etc/de/functions
+
+
+
 
 if [ ! -d /mnt/rdafs ]; then
    echo "ERROR: A volume is required for the container and must be mounted at /mnt/rdafs"
@@ -26,8 +39,11 @@ fromdos /usr/local/rtws/webapps-repository/bin/*.sh
 
 
 
+cd /usr/local/jetty/bin/
+   /usr/local/jetty/bin/jetty_start.sh
+cd -
+   
+jetty_watchdog
 
-/usr/local/jetty/bin/jetty_start.sh
-
-
-sleep 99d
+cd /usr/local/jetty/bin/
+   /usr/local/jetty/bin/jetty_stop.sh

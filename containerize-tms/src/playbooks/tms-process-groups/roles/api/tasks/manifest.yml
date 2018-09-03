@@ -1,0 +1,9 @@
+---
+  - unarchive: src={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} dest=/usr/local/jetty/webapps
+    loop:
+      - deleidos-rtws-webapps-logapi-webapp.tar.gz
+      - deleidos-rtws-webapps-dbapi-webapp.tar.gz
+      - deleidos-rtws-webapps-tenantapi-webapp.tar.gz
+      - deleidos-rtws-webapps-ingestapi-webapp.tar.gz
+    loop_control:
+      loop_var: sw

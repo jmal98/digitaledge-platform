@@ -10,6 +10,16 @@
       - setup-rtws.yml
     loop_control:
       loop_var: task
+  
+  - file: path=/etc/de owner=root group=root mode=0775 state=directory recurse=no    
+  
+  - template: 
+      src: functions.j2 
+      dest: /etc/de/functions 
+      owner: root
+      group: root 
+      mode: 0555 
+      force: yes
       
   - template: 
       src: bootstrap_master.j2 

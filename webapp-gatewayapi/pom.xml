@@ -473,7 +473,7 @@
 					<execution>
 						<configuration>
 							<finalName>deleidos-rtws-webapps-gatewayapi-webapp</finalName>
-							<appendAssemblyId>false</appendAssemblyId>
+							<appendAssemblyId>true</appendAssemblyId>
 							<descriptors>
 								<descriptor>src/main/assembly/dist-webapp.xml</descriptor>
 							</descriptors>

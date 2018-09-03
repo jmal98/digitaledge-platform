@@ -1,6 +1,20 @@
 ---
   - template: src=rtwsrc.j2 dest=/etc/rtwsrc owner=rtws group=rtws mode=0644 force=yes
   
+  - file: path={{ dir }} owner=rtws group=rtws mode=0775 state=directory recurse=yes
+    loop:
+      - /usr/local/rtws/properties
+      - /usr/local/rtws/conf
+    loop_control:
+      loop_var: dir
+      
+  - template: src=aws.j2 dest={{ dir }}/aws.properties owner=rtws group=rtws mode=0644 force=yes
+    loop:
+      - /usr/local/rtws/properties
+      - /usr/local/rtws/conf
+    loop_control:
+      loop_var: dir
+  
   - file: path={{ rtws_appfs }}/configuration/{{ rtws_domain }} owner=rtws group=rtws mode=0775 state=directory recurse=yes
   
   - name: Ensure correct permissions on {{ rtws_appfs }}/configuration

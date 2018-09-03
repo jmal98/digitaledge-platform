@@ -7,12 +7,15 @@ ARG RTWS_RELEASE=unknown
 RUN apt-get update \
  && apt-get install -y \
  			ca-certificates \
+ 			curl \
+ 			dnsutils \
             gcc \
             jq \
             logrotate \
             libssl-dev \
             libffi-dev \
             make \
+            net-tools \
             openjdk-8-jre-headless \
             openssl \
             python-cffi \

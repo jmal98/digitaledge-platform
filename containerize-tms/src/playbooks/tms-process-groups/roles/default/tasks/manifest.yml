@@ -1,0 +1,9 @@
+---
+  - unarchive: src={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} dest=/usr/local/jetty/webapps
+    loop:
+      - deleidos-rtws-webapps-tenantconsole-webapp.tar.gz
+      - deleidos-rtws-webapps-datamodeleditor-webapp.tar.gz
+      - deleidos-rtws-webapps-systemmonitor-webapp.tar.gz
+      - deleidos-rtws-webapps-tablemgr-webapp.tar.gz
+    loop_control:
+      loop_var: sw

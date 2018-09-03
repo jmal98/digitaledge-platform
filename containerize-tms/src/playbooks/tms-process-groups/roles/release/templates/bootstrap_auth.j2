@@ -1,8 +1,82 @@
 #!/bin/bash -e
 
+source /etc/rtwsrc
+
+[ -f /etc/de/functions ] && . /etc/de/functions
+
+_term() { 
+  printf "%s\n" "Caught SIGTERM signal!" 
+  kill -TERM $child 2>/dev/null
+  cd /usr/local/jetty/bin/
+   /usr/local/jetty/bin/jetty_stop.sh
+  cd -
+}
+
+trap _term 15
+
+
 if [ ! -d /mnt/rdafs ]; then
    echo "ERROR: A volume is required for the container and must be mounted at /mnt/rdafs"
    exit 1
 fi
 
-sleep 99d
+
+
+chown -R apacheds:apacheds /usr/local/apacheds_deployment
+chmod -c 775 /usr/local/apacheds_deployment/*.sh
+fromdos /usr/local/apacheds_deployment/*.sh
+chown -R apacheds:apacheds /usr/local/apacheds-1.5.7
+chmod -c 775 /usr/local/apacheds-1.5.7/*.sh
+fromdos /usr/local/apacheds-1.5.7/*.sh
+chown -R apacheds:apacheds /usr/local/apacheds-2.0.0-M16
+chmod -c 775 /usr/local/apacheds-2.0.0-M16/*.sh
+fromdos /usr/local/apacheds-2.0.0-M16/*.sh
+
+
+cd /usr/local/rtws/commons-core/bin/boot
+   /usr/local/rtws/commons-core/bin/boot/run_h2.sh /mnt/rdafs
+cd -
+
+if [ ! -d /mnt/rdafs/gwdb ]; then
+   mkdir -v /mnt/rdafs/gwdb
+   chown rtws:rtws /mnt/rdafs/gwdb
+   chmod -c 775 /mnt/rdafs/gwdb
+fi
+
+cd /usr/local/apacheds_deployment
+   /usr/local/apacheds_deployment/deploy_apacheds.sh
+cd -
+
+
+cd /usr/local/apacheds
+   /usr/local/apacheds/apacheds_start.sh
+cd -
+
+if [ -f /mnt/rdafs/savedTmsMasterIP ]; then
+   rm -vf /mnt/rdafs/savedTmsMasterIP
+fi
+if [ -f /mnt/rdafs/savedTmsAPIIP ]; then
+   rm -vf /mnt/rdafs/savedTmsAPIIP
+fi
+
+cd /usr/local/jetty/bin/
+   /usr/local/jetty/bin/jetty_start.sh
+cd -
+
+cd /usr/local/apacheds_deployment/
+   /usr/local/apacheds/setup_apacheds.sh data/init-directory.ldif
+cd -
+
+
+jetty_watchdog
+
+cd /usr/local/jetty/bin/
+   /usr/local/jetty/bin/jetty_stop.sh
+cd -
+
+touch /usr/local/rtws/commons-core/bin/boot/STOP_H2
+sleep 2m
+
+cd /usr/local/apacheds
+   /usr/local/apacheds/apacheds_stop.sh
+cd -
