@@ -203,103 +203,36 @@
  */
 package com.deleidos.rtws.commons.cloud.platform.docker;
 
-import java.io.IOException;
-import java.net.InetAddress;
+import java.net.Inet4Address;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.amazonaws.AmazonClientException;
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.services.ec2.AmazonEC2Client;
-import com.amazonaws.services.ec2.model.Address;
-import com.amazonaws.services.ec2.model.AllocateAddressRequest;
-import com.amazonaws.services.ec2.model.AssociateAddressRequest;
-import com.amazonaws.services.ec2.model.AttachVolumeRequest;
 import com.amazonaws.services.ec2.model.AttachVolumeResult;
-import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
-import com.amazonaws.services.ec2.model.AvailabilityZone;
-import com.amazonaws.services.ec2.model.CreateSecurityGroupRequest;
-import com.amazonaws.services.ec2.model.CreateSecurityGroupResult;
-import com.amazonaws.services.ec2.model.CreateSnapshotRequest;
-import com.amazonaws.services.ec2.model.CreateSnapshotResult;
-import com.amazonaws.services.ec2.model.CreateTagsRequest;
-import com.amazonaws.services.ec2.model.CreateVolumeRequest;
 import com.amazonaws.services.ec2.model.CreateVolumeResult;
-import com.amazonaws.services.ec2.model.DeleteSecurityGroupRequest;
-import com.amazonaws.services.ec2.model.DeleteSnapshotRequest;
-import com.amazonaws.services.ec2.model.DeleteVolumeRequest;
-import com.amazonaws.services.ec2.model.DescribeAddressesRequest;
-import com.amazonaws.services.ec2.model.DescribeAddressesResult;
-import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
-import com.amazonaws.services.ec2.model.DescribeInstanceAttributeRequest;
-import com.amazonaws.services.ec2.model.DescribeInstanceAttributeResult;
-import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
-import com.amazonaws.services.ec2.model.DescribeInstancesResult;
-import com.amazonaws.services.ec2.model.DescribeRegionsResult;
-import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
-import com.amazonaws.services.ec2.model.DescribeSnapshotsResult;
-import com.amazonaws.services.ec2.model.DescribeVolumesRequest;
-import com.amazonaws.services.ec2.model.DescribeVolumesResult;
-import com.amazonaws.services.ec2.model.DetachVolumeRequest;
-import com.amazonaws.services.ec2.model.DisassociateAddressRequest;
-import com.amazonaws.services.ec2.model.Filter;
 import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.InstanceBlockDeviceMapping;
-import com.amazonaws.services.ec2.model.InstanceStateName;
-import com.amazonaws.services.ec2.model.IpPermission;
-import com.amazonaws.services.ec2.model.ModifyImageAttributeRequest;
-import com.amazonaws.services.ec2.model.ModifyInstanceAttributeRequest;
-import com.amazonaws.services.ec2.model.Placement;
-import com.amazonaws.services.ec2.model.Region;
-import com.amazonaws.services.ec2.model.ReleaseAddressRequest;
-import com.amazonaws.services.ec2.model.Reservation;
-import com.amazonaws.services.ec2.model.RevokeSecurityGroupIngressRequest;
-import com.amazonaws.services.ec2.model.RunInstancesRequest;
-import com.amazonaws.services.ec2.model.RunInstancesResult;
-import com.amazonaws.services.ec2.model.SecurityGroup;
-import com.amazonaws.services.ec2.model.StartInstancesRequest;
-import com.amazonaws.services.ec2.model.StopInstancesRequest;
-import com.amazonaws.services.ec2.model.Tag;
-import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
-import com.amazonaws.services.ec2.model.UserIdGroupPair;
-import com.amazonaws.services.ec2.model.VolumeAttachment;
-import com.jcabi.aspects.RetryOnFailure;
-import com.deleidos.rtws.commons.cloud.IntrospectionClient;
 import com.deleidos.rtws.commons.cloud.ProcessState;
 import com.deleidos.rtws.commons.cloud.beans.FirewallGroup;
-import com.deleidos.rtws.commons.cloud.beans.FirewallGroupSource;
-import com.deleidos.rtws.commons.cloud.beans.FirewallIpRangeSource;
-import com.deleidos.rtws.commons.cloud.beans.FirewallRule;
 import com.deleidos.rtws.commons.cloud.beans.Process;
 import com.deleidos.rtws.commons.cloud.beans.ProcessDefinition;
 import com.deleidos.rtws.commons.cloud.beans.Snapshot;
-import com.deleidos.rtws.commons.cloud.beans.State;
 import com.deleidos.rtws.commons.cloud.beans.Volume;
 import com.deleidos.rtws.commons.cloud.beans.vpc.NetworkACL;
 import com.deleidos.rtws.commons.cloud.beans.vpc.PortRange;
 import com.deleidos.rtws.commons.cloud.beans.vpc.RouteTable;
 import com.deleidos.rtws.commons.cloud.beans.vpc.Subnet;
 import com.deleidos.rtws.commons.cloud.beans.vpc.Vpc;
-import com.deleidos.rtws.commons.cloud.exception.TimeoutException;
 import com.deleidos.rtws.commons.cloud.platform.ServiceInterface;
-import com.deleidos.rtws.commons.config.UserDataProperties;
-import com.deleidos.rtws.commons.util.regex.Internet;
 
 public class SimpleDockerServiceInterface implements ServiceInterface {
+	
+	private static Logger log = Logger.getLogger(SimpleDockerServiceInterface.class);
 
 	@Override
 	public Process self() {
@@ -466,8 +399,18 @@ public class SimpleDockerServiceInterface implements ServiceInterface {
 
 	@Override
 	public Instance describeInstance(String instanceId) {
-		// noop
-		return null;
+		log.info(String.format("Attempting to generate an Instance for: (%s)", instanceId));
+		Instance instance = new Instance();
+		try {
+			instance
+				.withPrivateIpAddress(Inet4Address.getByName(instanceId).getHostAddress())
+				.withPublicIpAddress(Inet4Address.getByName(instanceId).getHostAddress())
+			;
+			return instance;
+		} catch (UnknownHostException e) {
+			log.error(e.getMessage(),e);
+		} finally {}
+		return instance;
 	}
 
 	@Override

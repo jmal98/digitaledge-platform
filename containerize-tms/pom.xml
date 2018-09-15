@@ -222,7 +222,6 @@
 
 	<dependencies>
 
-		<!-- All TMS Process Groups -->
 
 		<dependency>
 			<groupId>com.deleidos</groupId>
@@ -237,31 +236,21 @@
 			<version>${project.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.deleidos</groupId>
+			<artifactId>CertificateAuthority</artifactId>
+			<version>${project.version}</version>
+			<classifier>dist</classifier>
+			<type>tar.gz</type>
+		</dependency>
 
+		<dependency>
+			<groupId>com.deleidos</groupId>
+			<artifactId>boot-apps</artifactId>
+			<version>${project.version}</version>
+			<type>tar.gz</type>
+		</dependency>
 
-
-
-
-
-
-
-
-		<!-- Master Process Group -->
-
-
-
-
-
-
-		<!-- Auth Process Group -->
-
-
-
-
-
-
-
-		<!-- Api Process Group -->
 		<dependency>
 			<groupId>com.deleidos</groupId>
 			<artifactId>deleidos-rtws-webapps-tenantapi</artifactId>
@@ -276,11 +265,13 @@
 			<type>tar.gz</type>
 		</dependency>
 
+		<dependency>
+			<groupId>com.deleidos</groupId>
+			<artifactId>webapp-caapi</artifactId>
+			<version>${project.version}</version>
+			<type>tar.gz</type>
+		</dependency>
 
-
-
-
-		<!-- Default Process Group -->
 		<dependency>
 			<groupId>com.deleidos</groupId>
 			<artifactId>deleidos-rtws-mgmtconsole-war</artifactId>
@@ -494,6 +485,28 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${project.build.directory}/master/release</outputDirectory>
 									<destFileName>deleidos-rtws-webapps-logapi-webapp.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>webapp-caapi</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<classifier>dist-webapp</classifier>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/master/release</outputDirectory>
+									<destFileName>deleidos-rtws-webapps-caapi-webapp.tar.gz</destFileName>
+								</artifactItem>
+								
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>webapp-caapi</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<classifier>dist</classifier>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/master/release</outputDirectory>
+									<destFileName>deleidos-rtws-ca-conf.tar.gz</destFileName>
 								</artifactItem>
 
 								<artifactItem>

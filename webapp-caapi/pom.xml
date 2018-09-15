@@ -366,7 +366,7 @@
 					<execution>
 						<configuration>
 							<finalName>deleidos-rtws-ca-conf</finalName>
-							<appendAssemblyId>false</appendAssemblyId>
+							<appendAssemblyId>true</appendAssemblyId>
 							<descriptors>
 								<descriptor>src/main/assembly/dist.xml</descriptor>
 							</descriptors>
@@ -381,7 +381,7 @@
 					<execution>
 						<configuration>
 							<finalName>deleidos-rtws-webapps-caapi-webapp</finalName>
-							<appendAssemblyId>false</appendAssemblyId>
+							<appendAssemblyId>true</appendAssemblyId>
 							<descriptors>
 								<descriptor>src/main/assembly/dist-webapp.xml</descriptor>
 							</descriptors>

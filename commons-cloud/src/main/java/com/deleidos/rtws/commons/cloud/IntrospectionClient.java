@@ -205,9 +205,12 @@ package com.deleidos.rtws.commons.cloud;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+
+import com.deleidos.rtws.commons.config.RtwsConfig;
 
 public class IntrospectionClient {
 
@@ -218,7 +221,10 @@ public class IntrospectionClient {
 	}
 	
 	public String getId() throws IOException {
-		return retrieveTextContent(buildUrl("meta-data/instance-id"));
+		if (RtwsConfig.getInstance().getString("rtws.cloud.provider", "UNKNOWN").equals("DOCKER"))
+			return InetAddress.getLocalHost().getHostName();
+		else
+			return retrieveTextContent(buildUrl("meta-data/instance-id"));
 	}
 	
 	private static URL buildUrl(String parameter) throws MalformedURLException {

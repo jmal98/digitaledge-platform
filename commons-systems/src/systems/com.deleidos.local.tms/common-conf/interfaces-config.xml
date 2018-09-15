@@ -206,20 +206,11 @@
 -->
 <interfaces xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<storage-interface xsi:type="java:com.deleidos.rtws.commons.cloud.platform.jetset.JetSetThreadedStorageService">
-		<connection-factory>
-			<properties-file>/usr/local/rtws/conf/aws.properties</properties-file>
-			<storage-endpoint>s3.amazonaws.com</storage-endpoint>
-			<storage-port-number>80</storage-port-number>
-		</connection-factory>
+	<storage-interface xsi:type="java:com.deleidos.rtws.commons.cloud.platform.docker.SimpleDockerStorageInterface">
 	</storage-interface>
 	
-	<service-interface xsi:type="java:com.deleidos.rtws.commons.cloud.platform.aws.AwsServiceInterface">
+	<service-interface xsi:type="java:com.deleidos.rtws.commons.cloud.platform.docker.SimpleDockerServiceInterface">
 		<timeout>900000</timeout>
-		<connection-factory>
-			<properties-file>/usr/local/rtws/conf/aws.properties</properties-file>
-			<service-endpoint>ec2.us-east-1.amazonaws.com</service-endpoint>
-		</connection-factory>
 	</service-interface>
 	
 </interfaces>

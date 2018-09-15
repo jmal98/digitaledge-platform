@@ -214,10 +214,15 @@ cp /usr/local/rtws/boot-apps/.key/internal-ssl-keystore .
 cp /usr/local/rtws/boot-apps/.key/ssl-truststore .
 chown jetty:jetty external-ssl-keystore internal-ssl-keystore ssl-truststore
 
-#Copy generated ssl-keystore/truststore to etc under activemq
-cd /usr/local/apache-activemq/conf
-rm -f ssl-keystore
-cp /usr/local/rtws/boot-apps/.key/external-ssl-keystore .
-cp /usr/local/rtws/boot-apps/.key/internal-ssl-keystore .
-cp /usr/local/rtws/boot-apps/.key/ssl-truststore .
-chown activemq:activemq external-ssl-keystore internal-ssl-keystore ssl-truststore
+#Conditionally copy generated ssl-keystore/truststore to etc under activemq
+# TMS process groups do not use activemq
+set +e
+id activemq
+if [ $? -eq 0 ]; then
+	cd /usr/local/apache-activemq/conf
+	rm -f ssl-keystore
+	cp /usr/local/rtws/boot-apps/.key/external-ssl-keystore .
+	cp /usr/local/rtws/boot-apps/.key/internal-ssl-keystore .
+	cp /usr/local/rtws/boot-apps/.key/ssl-truststore .
+	chown activemq:activemq external-ssl-keystore internal-ssl-keystore ssl-truststore
+fi

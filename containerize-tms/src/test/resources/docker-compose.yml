@@ -1,7 +1,7 @@
 version: '3'
 services:
   master:
-    image: jmal98/digitaledge-master.tms.local.deleidos.com:rtws-nightly_2018-08-17_2118
+    image: jmal98/digitaledge-master.tms.local.deleidos.com:${CUR_REL:-latest}
     networks:
       tms:
         aliases:
@@ -12,7 +12,7 @@ services:
      - "0:8443"
 
   auth:
-    image: jmal98/digitaledge-auth.tms.local.deleidos.com:rtws-nightly_2018-08-17_2118
+    image: jmal98/digitaledge-auth.tms.local.deleidos.com:${CUR_REL:-latest}
     depends_on:
       - master
     networks:
@@ -25,7 +25,7 @@ services:
      - "0:8443"
 
   api:
-    image: jmal98/digitaledge-api.tms.local.deleidos.com:rtws-nightly_2018-08-17_2118
+    image: jmal98/digitaledge-api.tms.local.deleidos.com:${CUR_REL:-latest}
     depends_on:
       - master
       - auth
@@ -37,7 +37,7 @@ services:
      - "0:8443"
 
   default:
-    image: jmal98/digitaledge-default.tms.local.deleidos.com:rtws-nightly_2018-08-17_2118
+    image: jmal98/digitaledge-default.tms.local.deleidos.com:${CUR_REL:-latest}
     depends_on:
       - master
       - auth

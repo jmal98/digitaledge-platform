@@ -27,14 +27,19 @@ if [ ! -d /mnt/rdafs/tmp/repository ]; then
    chown -c jetty:rtws /mnt/rdafs/tmp/repository
 fi
 
-/usr/local/jetty/bin/jetty_setup.sh
-chmod -c 755 /usr/local/rtws/webapps-repository/bin/*.sh
-fromdos /usr/local/rtws/webapps-repository/bin/*.sh
-/usr/local/rtws/commons-core/bin/boot/rtws_property_replace.pl /usr/local/rtws/properties/rtws-common.properties /usr/local/rtws/webapps-repository/bin/setup_repository.sh
-/usr/local/rtws/webapps-repository/bin/setup_repository.sh /usr/local/rtws/webapps-repository/conf
 
-/usr/local/rtws/commons-core/bin/boot/rtws_property_replace.pl /usr/local/rtws/properties/rtws-common.properties /usr/local/jetty/webapps/repository/WEB-INF/web.xml
-/usr/local/rtws/commons-core/bin/boot/rtws_property_replace.pl /usr/local/rtws/properties/rtws-common.properties /usr/local/jetty/webapps/repository/WEB-INF/templates/bootstrap.properties
+
+cd /usr/local/rtws/cert-auth/bin
+   /usr/local/rtws/cert-auth/bin/setup_env.sh true
+cd -
+
+cd /usr/local/rtws/boot-apps/bin
+   /usr/local/rtws/boot-apps/bin/run_certgeneration.sh
+cd -
+
+cd /usr/local/rtws/commons-core/bin/boot/
+   /usr/local/rtws/commons-core/bin/boot/setup_ssl_keystores.sh
+cd -
 
 
 
