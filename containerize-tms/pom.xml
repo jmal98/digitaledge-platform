@@ -269,7 +269,7 @@
 			<groupId>com.deleidos</groupId>
 			<artifactId>webapp-caapi</artifactId>
 			<version>${project.version}</version>
-			<type>tar.gz</type>
+			<type>pom</type>
 		</dependency>
 
 		<dependency>

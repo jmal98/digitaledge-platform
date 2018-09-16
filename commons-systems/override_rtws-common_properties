@@ -1,0 +1,15 @@
+#!/bin/bash -e
+
+if [ -z ${1} ]; then
+  exit 0
+fi
+
+if [ ! -f ${1} ]; then
+  echo "ERROR: ${1} is not a valid file."
+  exit -1
+fi
+
+if [ -f ~/.de/override_rtws-common_properties ]; then
+  echo "Overriding select properties in: ${1} via execution of ~/.de/override_rtws-common_properties"
+  ~/.de/override_rtws-common_properties ${1}
+fi

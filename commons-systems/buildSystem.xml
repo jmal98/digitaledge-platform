@@ -225,6 +225,14 @@
 	<property name="project.src.regions.dir" value="${basedir}/src/regions" />
 	<property name="project.src.systems.dir" value="${basedir}/src/systems" />
 	<property name="project.src.templates.dir" value="${basedir}/src/templates" />
+	
+	<condition property="isWindows">
+	    <os family="windows" />
+	</condition>
+
+	<condition property="isUnix">
+	    <os family="unix" />
+	</condition>
 
 	<!-- ant support -->
 
@@ -473,12 +481,33 @@
 		<antcall target="copy-filtering-properties-to-dest">
 			<param name="dest.path" value="${project.build.configs.dir}/${system.domain-reversed}/${template.name}${bundle.subdir}/rtws-common.properties" />
 		</antcall>
+		
+		<antcall target="override-rtws-common-properties-windows">
+			<param name="dest.path" value="${project.build.configs.dir}/${system.domain-reversed}/${template.name}${bundle.subdir}/rtws-common.properties" />
+		</antcall>
+		
+		<antcall target="override-rtws-common-properties-linux">
+			<param name="dest.path" value="${project.build.configs.dir}/${system.domain-reversed}/${template.name}${bundle.subdir}/rtws-common.properties" />
+		</antcall>
 	</target>
 
 	<target name="copy-filtering-properties-to-dest">
 		<available property="is-filtering-override-present" file="${project.src.systems.dir}/${system.domain-reversed}/filtering.properties" />
 		<antcall target="copy-filtering-properties-to-dest-override" />
 		<antcall target="copy-filtering-properties-to-dest-default" />
+	</target>
+	
+	
+	<target name="override-rtws-common-properties-windows" if="isWindows">
+		<exec executable="${basedir}/override_rtws-common_properties.cmd">
+		    <arg value="${dest.path}"/>
+		</exec>
+	</target>
+	
+	<target name="override-rtws-common-properties-linux" if="isUnix">
+		<exec executable="${basedir}/override_rtws-common_properties">
+		    <arg value="${dest.path}"/>
+		</exec>
 	</target>
 
 	<target name="copy-filtering-properties-to-dest-override" if="is-filtering-override-present">
