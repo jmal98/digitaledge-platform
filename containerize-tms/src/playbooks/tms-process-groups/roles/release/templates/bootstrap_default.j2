@@ -14,6 +14,10 @@ trap _term 15
 [ -f /etc/de/functions ] && . /etc/de/functions
 
 
+echo "Starting moc AWS metadata Service"
+/sbin/ifconfig lo:1 inet 169.254.169.254 netmask 255.255.255.255 up
+java -jar /sbin/md.jar &
+sleep 1m
 
 
 cd /usr/local/jetty/bin/

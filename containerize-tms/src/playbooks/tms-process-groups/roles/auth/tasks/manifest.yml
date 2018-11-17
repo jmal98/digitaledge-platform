@@ -41,3 +41,36 @@
     loop_control:
       loop_var: sw
  
+  - name: Extracting release to /usr/local/rtws
+    unarchive: src={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} dest=/usr/local/rtws/
+    loop:
+      - deleidos-rtws-ca-conf.tar.gz
+    loop_control:
+      loop_var: sw
+ 
+  - name: Removing release tar.gz(s) 
+    file: path={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} state=absent
+    loop:
+      - deleidos-rtws-ca-conf.tar.gz
+    loop_control:
+      loop_var: sw
+      
+  - shell: find {{ dir }} -name '*.sh' -exec chmod -c a+x {} \;
+    loop:
+      - /usr/local/rtws/ca/bin
+    loop_control:
+      loop_var: dir
+  
+  - shell: fromdos {{ dir }}/*.sh
+    loop:
+      - /usr/local/rtws/ca/bin
+    loop_control:
+      loop_var: dir 
+      
+  - shell: fromdos {{ dir }}/*.ca
+    loop:
+      - /usr/local/rtws/ca/conf
+    loop_control:
+      loop_var: dir
+      
+      

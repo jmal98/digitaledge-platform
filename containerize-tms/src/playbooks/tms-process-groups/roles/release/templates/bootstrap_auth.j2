@@ -21,6 +21,10 @@ if [ ! -d /mnt/rdafs ]; then
 fi
 
 
+echo "Starting moc AWS metadata Service"
+/sbin/ifconfig lo:1 inet 169.254.169.254 netmask 255.255.255.255 up
+java -jar /sbin/md.jar &
+sleep 1m
 
 chown -R apacheds:apacheds /usr/local/apacheds_deployment
 chmod -c 775 /usr/local/apacheds_deployment/*.sh
@@ -58,6 +62,21 @@ fi
 if [ -f /mnt/rdafs/savedTmsAPIIP ]; then
    rm -vf /mnt/rdafs/savedTmsAPIIP
 fi
+
+
+cd /usr/local/rtws/cert-auth/bin
+   /usr/local/rtws/cert-auth/bin/setup_env.sh true
+cd -
+
+cd /usr/local/rtws/boot-apps/bin
+   /usr/local/rtws/boot-apps/bin/run_certgeneration.sh
+cd -
+
+cd /usr/local/rtws/commons-core/bin/boot/
+   /usr/local/rtws/commons-core/bin/boot/setup_ssl_keystores.sh
+cd -
+
+
 
 cd /usr/local/jetty/bin/
    /usr/local/jetty/bin/jetty_start.sh

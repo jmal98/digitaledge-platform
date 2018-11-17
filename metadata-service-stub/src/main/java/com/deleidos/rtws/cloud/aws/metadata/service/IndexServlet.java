@@ -201,200 +201,32 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.deleidos.rtws.ca.properties;
+package com.deleidos.rtws.cloud.aws.metadata.service;
 
-import org.apache.commons.lang.StringUtils;
+import java.io.IOException;
+import java.io.Writer;
 
-import com.deleidos.rtws.commons.config.ConfigEncryptor;
-import com.deleidos.rtws.commons.config.RtwsConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-public class CAProperties {
+public class IndexServlet extends HttpServlet {
 
-	private static final String ROOT_DIR = "/etc/pki";
-	private static final String PRIVATE_DOMAIN_ALIAS = "private_domain_instance";
-	private static final String PUBLIC_ALIAS = "server";
-	private static final String ROOT_CA_PASS_KEY = "rtws.root.ca.password";
-	private static final String INTERNAL_TRUST_STORE_NAME = "internal-truststore-ssl";
-	private static final String EXTERNAL_TRUST_STTORE_NAME = "external-truststore-ssl";
-	private static final String SIGNING_CERT_NAME = "myca.crt";
-	private static final String SIGNING_KEY_NAME = "myca.key";
-	private static final String TMP_DIR = "/tmp/pki";
-	private static final String SIGNING_EMAIL = "dev@rtsaic.com";
-	private static final String TMP_KEY_DER = "/tmp/pki/.key.der";
-	private static final String TMP_CERT_DER = "/tmp/pki/.cert.der";
-	private static final String KEYSTORE_PUBLIC_SUFFIX = "_public_keystore";
-	private static final String CERT_PUBLIC_SUFFIX = "_public_domain";
-	private static final String TEMPLATE_INTERNAL = "internal_server_%d";
-	private static final String TEMPLATE_EXTERNAL = "external_server_%d";
-	private static final String TENANT_ALIAS = "external";
-	private static final String INTERNAL_DB_FILE = "internal_index.txt";
-	private static final String EXTERNAL_DB_FILE = "external_index.txt";
-	private static final String TMP_PUBLIC_DOMAIN_KEY_NAME = ".public_domain_key";
-	private static final String TMP_PRIVATE_DOMAIN_KEY_NAME = ".private_domain_key";
-	private static final String TMS_TENANT_EXTERNAL_CERTS_FILE_NAME = "tms-tenant-external-cert-truststore.jks";
-	
-	public enum CERT_TYPE {internal, external};
-	
-	public enum SIGN_TYPE {ca, cert};
-	
-	public static String getRootCADir(){
-		return ROOT_DIR;
-	}
-	
-	public static String getIssuedCertsDir(){
-		return String.format("%s/CA/certs", ROOT_DIR);
-	}
-	
-	public static String getIssuedCrlDir(){
-		return String.format("%s/CA/crl", ROOT_DIR);
-	}
-	
-	public static String getPrivateDir(){
-		return String.format("%s/CA/private", ROOT_DIR);
-	}
-	
-	public static String getPublicDir(){
-		return String.format("%s/CA/public", ROOT_DIR);
-	}
-	
-	public static String getNewCertsDir(){
-		return String.format("%s/CA/newcerts", ROOT_DIR);
-	}
-	
-	public static String getPublicPkiDir(){
-		return String.format("%s/pki/.public", ROOT_DIR);
-	}
-	
-	public static String getPrivateDomainAlias(){
-		return PRIVATE_DOMAIN_ALIAS;
-	}
-	
-	public static String getSigningKeyLocation(){
-		return String.format("%s/CA/private/%s", ROOT_DIR, SIGNING_KEY_NAME);
-	}
-	
-	public static String getSigningCertLocation(){
-		return String.format("%s/CA/certs/%s", ROOT_DIR, SIGNING_CERT_NAME);
-	}
-	
-	public static String getPublicCertLocation(){
-		return String.format("%s/CA/public/public.crt", ROOT_DIR);
-	}
-	
-	public static String getPublicKeyLocation(){
-		return String.format("%s/CA/public/public.key", ROOT_DIR);
-	}
-	
-	public static String getTmpKeyLocation(String fileName){
-		if(StringUtils.isBlank(fileName)){
-			return String.format("%s/.key", TMP_DIR);
-		}
-		else{
-			return String.format("%s/%s", TMP_DIR, fileName);
-		}
-	}
-	
-	public static String getPublicAlias(){
-		return PUBLIC_ALIAS;
-	}
-	
-	public static String getRootCAPassword(){
-		try {
-		return ConfigEncryptor.instance().decryptWithWrapper(RtwsConfig.getInstance().getString(ROOT_CA_PASS_KEY));
+	private static final long serialVersionUID = -7616448302181643710L;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try (Writer writer = resp.getWriter();) {
+
+			if (req.getServletPath().equals("/")) {
+				writer.write("/latest");
+				writer.flush();
+			} else {
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			}
 		} finally {
-			System.out.println(String.format("(%s)  ->   (%s)", ROOT_CA_PASS_KEY,  ConfigEncryptor.instance().decryptWithWrapper(RtwsConfig.getInstance().getString(ROOT_CA_PASS_KEY))));
 		}
 	}
-	
-	public static String getInternalTrustStoreName(){
-		return INTERNAL_TRUST_STORE_NAME;
-	}
-	
-	public static String getExternalTrustStoreName(){
-		return EXTERNAL_TRUST_STTORE_NAME;
-	}
-	
-	public static String getInternalTrustStorePassword(){
-		return RtwsConfig.getInstance().getString("rtws.truststore.password");
-	}
-	
-	public static String getSigningCertFileName(){
-		return SIGNING_CERT_NAME;
-	}
-	
-	public static String getSigningKeyFileName(){
-		return SIGNING_KEY_NAME;
-	}
-	
-	public static String getDefaultPasswordFile(){
-		return String.format("%s/CA/.pass", ROOT_DIR);
-	}
-	
-	public static String getTmpDir(){
-		return TMP_DIR;
-	}
-	
-	public static String getTmpPublicCert(){
-		return String.format("%s/.public.crt", TMP_DIR);
-	}
-	
-	public static String getTmpPublicKey(){
-		return String.format("%s/.public.key", TMP_DIR);
-	}
-	
-	public static String getSigningEmail(){
-		return SIGNING_EMAIL;
-	}
-	
-	public static String getInternalKeyPassword(){
-		return RtwsConfig.getInstance().getString("rtws.internal.keystore.password");
-	}
-	
-	public static String getTmpKeyDer(){
-		return TMP_KEY_DER;
-	}
-	
-	public static String getTmpCertDer(){
-		return TMP_CERT_DER;
-	}
-	
-	public static String getKeystorePublicSuffix(){
-		return KEYSTORE_PUBLIC_SUFFIX;
-	}
-	
-	public static String getCertPublicSuffix(){
-		return CERT_PUBLIC_SUFFIX;
-	}
-	
-	public static String getTemplateInternal(){
-		return TEMPLATE_INTERNAL;
-	}
-	
-	public static String getTemplateExternal(){
-		return TEMPLATE_EXTERNAL;
-	}
-	
-	public static String getTenantAlias(){
-		return TENANT_ALIAS;
-	}
-	
-	public static String getInternalDBFile(){
-		return String.format("%s/CA/%s", ROOT_DIR, INTERNAL_DB_FILE);
-	}
-	
-	public static String getExternalDBFile(){
-		return String.format("%s/CA/%s", ROOT_DIR, EXTERNAL_DB_FILE);
-	}
-	
-	public static String getTmpPublicDomainKeyName(){
-		return TMP_PUBLIC_DOMAIN_KEY_NAME;
-	}
-	
-	public static String getTmpPrivateDomainKeyName(){
-		return TMP_PRIVATE_DOMAIN_KEY_NAME;
-	}
-	
-	public static String getTmsTenantExternalCertsFileName(){
-		return TMS_TENANT_EXTERNAL_CERTS_FILE_NAME;
-	}
+
 }

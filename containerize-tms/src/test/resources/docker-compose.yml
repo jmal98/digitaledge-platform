@@ -1,4 +1,5 @@
-version: '3'
+version: '3.3'
+
 services:
   master:
     image: jmal98/digitaledge-master.tms.local.deleidos.com:${CUR_REL:-latest}
@@ -6,10 +7,13 @@ services:
       tms:
         aliases:
           - master.tms.local.deleidos.com
+    cap_add:
+      - NET_ADMIN
     volumes:
        - master_rdafs:/mnt/rdafs
     ports:
      - "0:8443"
+     - "0:443"
 
   auth:
     image: jmal98/digitaledge-auth.tms.local.deleidos.com:${CUR_REL:-latest}
@@ -18,11 +22,14 @@ services:
     networks:
       tms:
         aliases:
-          - auth.tms.local.deleidos.com
+          - auth.tms.local.deleidos.com   
+    cap_add:
+      - NET_ADMIN
     volumes:
        - auth_rdafs:/mnt/rdafs
     ports:
      - "0:8443"
+     - "0:443"
 
   api:
     image: jmal98/digitaledge-api.tms.local.deleidos.com:${CUR_REL:-latest}
@@ -33,6 +40,8 @@ services:
       tms:
         aliases:
           - api.tms.local.deleidos.com
+    cap_add:
+      - NET_ADMIN
     ports:
      - "0:8443"
 
@@ -42,16 +51,21 @@ services:
       - master
       - auth
       - api
+    cap_add:
+      - NET_ADMIN
     networks:
       tms:
         aliases:
           - default.tms.local.deleidos.com
     ports:
      - "0:8443"
-     
+     - "0:443"
+ 
+ 
+
 networks:
-  tms:
-  
+  tms:   
+         
 volumes:
   master_rdafs:
   

@@ -35,6 +35,8 @@
       - deleidos-rtws-common-conf-conf.tar.gz
     loop_control:
       loop_var: sw
+      
+  - replace: dest=/usr/local/rtws/properties/rtws-common.properties regexp='rtws.internal.webapp.unsecured.port=80' replace='rtws.internal.webapp.unsecured.port=81' backup=no
   
 
   - name: Ensure /usr/local/rtws has the correct permissions

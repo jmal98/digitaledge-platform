@@ -13,7 +13,8 @@ RUN apt-get update \
             libssl-dev \
             libffi-dev \
             make \
-            openjdk-8-jre-headless \
+            net-tools \
+            openjdk-8-jdk \
             openssl \
             python-cffi \
             python-crypto \

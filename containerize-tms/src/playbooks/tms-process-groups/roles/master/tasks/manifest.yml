@@ -55,8 +55,7 @@
     loop:
       - deleidos-rtws-ca-conf.tar.gz
     loop_control:
-      loop_var: sw
-      
+      loop_var: sw      
   
   - name: Removing release tar.gz(s) 
     file: path={{ rtws_appfs }}/release/{{ rtws_release }}/{{ sw }} state=absent

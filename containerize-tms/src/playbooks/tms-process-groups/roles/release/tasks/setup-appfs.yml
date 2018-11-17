@@ -20,3 +20,7 @@
       - services
     loop_control:
       loop_var: dir
+      
+  - copy: src={{ rtws_appfs }}/release/{{ rtws_release }}/metadata-service-stub.jar dest=/sbin/md.jar owner=root group=root mode=0444 remote_src=true
+  
+  

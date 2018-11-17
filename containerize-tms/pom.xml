@@ -225,9 +225,22 @@
 
 		<dependency>
 			<groupId>com.deleidos</groupId>
+			<artifactId>metadata-service-stub</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.deleidos</groupId>
 			<artifactId>commons-systems</artifactId>
 			<version>${project.version}</version>
 			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.deleidos</groupId>
+			<artifactId>system-database</artifactId>
+			<version>${project.version}</version>
+			<type>tar.gz</type>
 		</dependency>
 
 		<dependency>
@@ -267,7 +280,56 @@
 
 		<dependency>
 			<groupId>com.deleidos</groupId>
+			<artifactId>webapp-gatewayapi</artifactId>
+			<version>${project.version}</version>
+			<type>tar.gz</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.deleidos</groupId>
+			<artifactId>deleidos-rtws-webapps-dbapi</artifactId>
+			<version>${project.version}</version>
+			<type>tar.gz</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.deleidos</groupId>
+			<artifactId>deleidos-rtws-webapps-repository</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.deleidos</groupId>
 			<artifactId>webapp-caapi</artifactId>
+			<version>${project.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.deleidos</groupId>
+			<artifactId>webapp-logapi</artifactId>
+			<version>${project.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.deleidos</groupId>
+			<artifactId>DatabaseWrapper</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.deleidos</groupId>
+			<artifactId>deleidos-rtws-apacheds</artifactId>
+			<version>${project.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.deleidos</groupId>
+			<artifactId>webconsole-help</artifactId>
 			<version>${project.version}</version>
 			<type>pom</type>
 		</dependency>
@@ -276,35 +338,35 @@
 			<groupId>com.deleidos</groupId>
 			<artifactId>deleidos-rtws-mgmtconsole-war</artifactId>
 			<version>${project.version}</version>
-			<type>war</type>
+			<type>tar.gz</type>
 		</dependency>
 
 		<dependency>
 			<groupId>com.deleidos</groupId>
 			<artifactId>deleidos-rtws-systembuilder-war</artifactId>
 			<version>${project.version}</version>
-			<type>war</type>
+			<type>tar.gz</type>
 		</dependency>
 
 		<dependency>
 			<groupId>com.deleidos</groupId>
 			<artifactId>deleidos-rtws-datamodeler-war</artifactId>
 			<version>${project.version}</version>
-			<type>war</type>
+			<type>tar.gz</type>
 		</dependency>
 
 		<dependency>
 			<groupId>com.deleidos</groupId>
 			<artifactId>deleidos-rtws-systemmonitor-war</artifactId>
 			<version>${project.version}</version>
-			<type>war</type>
+			<type>tar.gz</type>
 		</dependency>
 
 		<dependency>
 			<groupId>com.deleidos</groupId>
 			<artifactId>deleidos-rtws-tablemgr-war</artifactId>
 			<version>${project.version}</version>
-			<type>war</type>
+			<type>tar.gz</type>
 		</dependency>
 
 	</dependencies>
@@ -497,7 +559,7 @@
 									<outputDirectory>${project.build.directory}/master/release</outputDirectory>
 									<destFileName>deleidos-rtws-webapps-caapi-webapp.tar.gz</destFileName>
 								</artifactItem>
-								
+
 								<artifactItem>
 									<groupId>com.deleidos</groupId>
 									<artifactId>webapp-caapi</artifactId>
@@ -507,6 +569,26 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${project.build.directory}/master/release</outputDirectory>
 									<destFileName>deleidos-rtws-ca-conf.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>deleidos-rtws-webapps-dbapi</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/master/release</outputDirectory>
+									<destFileName>deleidos-rtws-webapps-dbapi-webapp.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>metadata-service-stub</artifactId>
+									<version>${project.version}</version>
+									<classifier>rt</classifier>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/master/release</outputDirectory>
+									<destFileName>metadata-service-stub.jar</destFileName>
 								</artifactItem>
 
 								<artifactItem>
@@ -698,6 +780,27 @@
 
 								<artifactItem>
 									<groupId>com.deleidos</groupId>
+									<artifactId>webapp-caapi</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<classifier>dist</classifier>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/auth/release</outputDirectory>
+									<destFileName>deleidos-rtws-ca-conf.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>metadata-service-stub</artifactId>
+									<version>${project.version}</version>
+									<classifier>rt</classifier>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/auth/release</outputDirectory>
+									<destFileName>metadata-service-stub.jar</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
 									<artifactId>commons-systems</artifactId>
 									<version>${project.version}</version>
 									<type>tar.gz</type>
@@ -840,6 +943,26 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${project.build.directory}/api/release</outputDirectory>
 									<destFileName>deleidos-rtws-webapps-ingestapi-webapp.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>metadata-service-stub</artifactId>
+									<version>${project.version}</version>
+									<classifier>rt</classifier>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/api/release</outputDirectory>
+									<destFileName>metadata-service-stub.jar</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>deleidos-rtws-webapps-dbapi</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/api/release</outputDirectory>
+									<destFileName>deleidos-rtws-webapps-dbapi-webapp.tar.gz</destFileName>
 								</artifactItem>
 
 								<artifactItem>
@@ -990,6 +1113,26 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${project.build.directory}/default/release</outputDirectory>
 									<destFileName>deleidos-rtws-webapps-tablemgr-webapp.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>deleidos-rtws-webapps-dbapi</artifactId>
+									<version>${project.version}</version>
+									<type>tar.gz</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/default/release</outputDirectory>
+									<destFileName>deleidos-rtws-webapps-dbapi-webapp.tar.gz</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>com.deleidos</groupId>
+									<artifactId>metadata-service-stub</artifactId>
+									<version>${project.version}</version>
+									<classifier>rt</classifier>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/default/release</outputDirectory>
+									<destFileName>metadata-service-stub.jar</destFileName>
 								</artifactItem>
 
 								<artifactItem>

@@ -28,6 +28,11 @@ if [ ! -d /mnt/rdafs/tmp/repository ]; then
 fi
 
 
+echo "Starting moc AWS metadata Service"
+/sbin/ifconfig lo:1 inet 169.254.169.254 netmask 255.255.255.255 up
+java -jar /sbin/md.jar &
+sleep 1m
+
 
 cd /usr/local/rtws/cert-auth/bin
    /usr/local/rtws/cert-auth/bin/setup_env.sh true

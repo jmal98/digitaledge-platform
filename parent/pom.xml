@@ -1155,6 +1155,7 @@
 
 		<!-- Create a Dockerized TMS (Setup Tools) -->
 		<module>../containerize-tms</module>
+                <module>../metadata-service-stub</module>
 
 	</modules>
 </project>
