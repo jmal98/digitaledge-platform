@@ -7,13 +7,11 @@ services:
       tms:
         aliases:
           - master.tms.local.deleidos.com
+    #cpu_percent: 15
     cap_add:
       - NET_ADMIN
     volumes:
        - master_rdafs:/mnt/rdafs
-    ports:
-     - "0:8443"
-     - "0:443"
 
   auth:
     image: jmal98/digitaledge-auth.tms.local.deleidos.com:${CUR_REL:-latest}
@@ -23,13 +21,11 @@ services:
       tms:
         aliases:
           - auth.tms.local.deleidos.com   
+    #cpu_percent: 25
     cap_add:
       - NET_ADMIN
     volumes:
        - auth_rdafs:/mnt/rdafs
-    ports:
-     - "0:8443"
-     - "0:443"
 
   api:
     image: jmal98/digitaledge-api.tms.local.deleidos.com:${CUR_REL:-latest}
@@ -40,10 +36,9 @@ services:
       tms:
         aliases:
           - api.tms.local.deleidos.com
+    #cpu_percent: 25
     cap_add:
       - NET_ADMIN
-    ports:
-     - "0:8443"
 
   default:
     image: jmal98/digitaledge-default.tms.local.deleidos.com:${CUR_REL:-latest}
@@ -51,15 +46,31 @@ services:
       - master
       - auth
       - api
+    #cpu_percent: 15
     cap_add:
       - NET_ADMIN
     networks:
       tms:
         aliases:
           - default.tms.local.deleidos.com
+  
+  
+  # Used to interact (via web browser) with TMS stack on private network
+  webclient:
+    image: jlesage/firefox:v1.3.1
+    depends_on:
+      - master
+      - auth
+      - api
+      - default
     ports:
-     - "0:8443"
-     - "0:443"
+      - 5800:5800
+    shm_size: 2g
+    #cpu_percent: 5
+    networks:
+      tms:
+    volumes:
+       - webclient_rdafs:/config
  
  
 
@@ -70,3 +81,5 @@ volumes:
   master_rdafs:
   
   auth_rdafs:
+  
+  webclient_rdafs:
